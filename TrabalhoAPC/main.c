@@ -66,7 +66,7 @@ void UpdateDrawFrame(void)
 
         ClearBackground(RAYWHITE);
 
-        DrawText("caralho!", 190, 200, 20, LIGHTGRAY);
+        DrawText("ErickMamaEuclides!", 190, 200, 20, LIGHTGRAY);
 
     EndDrawing();
     //----------------------------------------------------------------------------------
