@@ -66,7 +66,7 @@ void UpdateDrawFrame(void)
 
         ClearBackground(RAYWHITE);
 
-        DrawText("VAI TOMA NO CU FLAMENGO", 190, 200, 20, LIGHTGRAY);
+        DrawText("VAI TOMA NO CU FLAMENGO!", 190, 200, 20, LIGHTGRAY);
 
     EndDrawing();
     //----------------------------------------------------------------------------------
