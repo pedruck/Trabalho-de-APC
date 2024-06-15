@@ -7,9 +7,7 @@
     #include <emscripten/emscripten.h>
 #endif
 
-//----------------------------------------------------------------------------------
-// Global Variables Definition
-//----------------------------------------------------------------------------------
+
 const int screenWidth = 1280;
 const int screenHeight = 720;
 
@@ -79,7 +77,7 @@ void UpdateDrawFrame(void)
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
 
-        DrawText(" DATA:", 0, 0, 20, LIGHTGRAY);
+        DrawText("DATA:", 0, 0, 20, LIGHTGRAY);
       //  DrawText(" DATA:", 0, 0, 20, LIGHTGRAY);
         
 
