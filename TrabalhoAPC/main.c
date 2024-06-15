@@ -10,10 +10,12 @@
 //----------------------------------------------------------------------------------
 // Global Variables Definition
 //----------------------------------------------------------------------------------
-const int screenWidth = 800;
-const int screenHeight = 450;
+const int screenWidth = 1280;
+const int screenHeight = 720;
 
-//krl funciona pfv
+Texture2D bg1;
+Texture2D division;
+Texture2D bg1bar;
 
 //----------------------------------------------------------------------------------
 // Module functions declaration
@@ -28,6 +30,10 @@ int WinMain(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+    bg1 = LoadTexture("Textures/p-p-bg1_scaled.png");
+    division = LoadTexture("Textures/p-p-division_scaled.png");
+    bg1bar = LoadTexture("Textures/p-p-bar1_scaled.png");
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -64,9 +70,18 @@ void UpdateDrawFrame(void)
     //----------------------------------------------------------------------------------
     BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(BLACK);
 
-        DrawText("heitorchuparola", 190, 200, 20, LIGHTGRAY);
+        
+
+        
+        DrawTexture(bg1, 0, 0, WHITE);
+        DrawTexture(bg1bar, 0, 0, WHITE);
+        DrawTexture(division, 0, 0, WHITE);
+
+        DrawText(" DATA:", 0, 0, 20, LIGHTGRAY);
+      //  DrawText(" DATA:", 0, 0, 20, LIGHTGRAY);
+        
 
     EndDrawing();
     //----------------------------------------------------------------------------------
