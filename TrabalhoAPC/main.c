@@ -90,13 +90,17 @@ int WinMain(void)
     SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    // Main game loop
+#endif
+
+// Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
+    { 
+        if (IsKeyPressed(KEY_F11))
+            ToggleFullscreen();
+        
         UpdateDrawFrame();
 
     }
-#endif
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
@@ -163,6 +167,7 @@ void UpdateDrawFrame(void)
 
     EndDrawing();
     //----------------------------------------------------------------------------------
+
 }
 
 
