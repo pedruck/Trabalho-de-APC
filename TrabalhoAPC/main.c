@@ -20,9 +20,11 @@ Texture2D bg1;
 Texture2D division;
 Texture2D bg1bar;
 Texture2D passaporteText;
+Texture2D CrosshairText;
 
 Vector2 NomeLocation;
 
+Retangulo Crosshair;
 Retangulo passaporte;
 
 Font font;
@@ -47,11 +49,6 @@ void UpdateFrames(void)
 
 
 
-
-
-
-
-
 //----------------------------------------------------------------------------------
 // Module functions declaration
 //----------------------------------------------------------------------------------
@@ -71,6 +68,7 @@ int WinMain(void)
     division = LoadTexture("Textures/p-p-division_scaled.png");
     bg1bar = LoadTexture("Textures/p-p-bar1_scaled.png");
     font = LoadFont("Textures/BMmini.TTF");
+   
     UpdateFrames();
 
     AvalicaoFoiFeita = false;
@@ -79,7 +77,6 @@ int WinMain(void)
     passaporte.y = 350;
     passaporte.largura = passaporteText.width;
     passaporte.altura = passaporteText.height;
-
     
 
     
@@ -125,6 +122,8 @@ void UpdateDrawFrame(void)
     NomeLocation.x = passaporte.x + 30;
     NomeLocation.y = passaporte.y + 340;
 
+
+
     
 
     // comeco da logica do passaporte
@@ -149,13 +148,14 @@ void UpdateDrawFrame(void)
 
         ClearBackground(BLACK);
 
-        
-        
-        
+        Crosshair.x = LocalizacaoMouse.x+CrosshairText.width/2;
+        Crosshair.y = LocalizacaoMouse.y+CrosshairText.height/2;
+        CrosshairText = LoadTexture("Textures/Cursor.png");
         DrawTexture(bg1, 0, 0, WHITE);
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
+        DrawTexture(CrosshairText, Crosshair.x, Crosshair.y, WHITE);
         DrawText("Nome do cara", passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
 
 
@@ -167,7 +167,6 @@ void UpdateDrawFrame(void)
 
     EndDrawing();
     //----------------------------------------------------------------------------------
-
 }
 
 
