@@ -68,6 +68,9 @@ int WinMain(void)
     division = LoadTexture("Textures/p-p-division_scaled.png");
     bg1bar = LoadTexture("Textures/p-p-bar1_scaled.png");
     font = LoadFont("Textures/BMmini.TTF");
+    CrosshairText = LoadTexture("Textures/Cursor.png");
+
+    DisableCursor();
    
     UpdateFrames();
 
@@ -148,9 +151,9 @@ void UpdateDrawFrame(void)
 
         ClearBackground(BLACK);
 
-        Crosshair.x = LocalizacaoMouse.x+CrosshairText.width/2;
-        Crosshair.y = LocalizacaoMouse.y+CrosshairText.height/2;
-        CrosshairText = LoadTexture("Textures/Cursor.png");
+        Crosshair.x = LocalizacaoMouse.x - CrosshairText.width/2;
+        Crosshair.y = LocalizacaoMouse.y - CrosshairText.height/2;
+        
         DrawTexture(bg1, 0, 0, WHITE);
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
