@@ -22,9 +22,11 @@ Texture2D bg1bar;
 Texture2D passaporteText;
 Texture2D CrosshairText;
 
+    
+
 Vector2 NomeLocation;
 
-Retangulo Crosshair;
+Vetor2D Crosshair;
 Retangulo passaporte;
 
 Font font;
@@ -69,7 +71,7 @@ int WinMain(void)
     bg1bar = LoadTexture("Textures/p-p-bar1_scaled.png");
     font = LoadFont("Textures/BMmini.TTF");
     CrosshairText = LoadTexture("Textures/Cursor.png");
-
+    
     DisableCursor();
    
     UpdateFrames();
