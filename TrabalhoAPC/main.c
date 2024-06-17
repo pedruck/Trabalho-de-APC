@@ -120,13 +120,18 @@ void UpdateDrawFrame(void)
     
     // Update
     //----------------------------------------------------------------------------------
+    
+    if (GetMouseX() < screenWidth-1 && GetMouseY() < screenHeight-1)
+        {
+            LocalizacaoMouse.x = GetMouseX();
+            LocalizacaoMouse.y = GetMouseY();
+        }
 
-    LocalizacaoMouse.x = GetMouseX();
-    LocalizacaoMouse.y = GetMouseY();
 
     NomeLocation.x = passaporte.x + 30;
     NomeLocation.y = passaporte.y + 340;
 
+    
 
 
     
@@ -153,14 +158,14 @@ void UpdateDrawFrame(void)
 
         ClearBackground(BLACK);
 
-        Crosshair.x = LocalizacaoMouse.x - CrosshairText.width/2;
-        Crosshair.y = LocalizacaoMouse.y - CrosshairText.height/2;
+
+        
         
         DrawTexture(bg1, 0, 0, WHITE);
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
-        DrawTexture(CrosshairText, Crosshair.x, Crosshair.y, WHITE);
+        DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
         DrawText("Nome do cara", passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
 
 
