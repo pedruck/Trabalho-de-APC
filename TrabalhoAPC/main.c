@@ -192,8 +192,8 @@ void UpdateDrawFrame(void)
         DrawTexture(division, 0, 0, WHITE);
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
         DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
-        
         DrawText("Nome do cara", passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
+        DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
         
         DrawText("DATA:", 0, 0, 20, LIGHTGRAY);
       //  DrawText(" DATA:", 0, 0, 20, LIGHTGRAY);
