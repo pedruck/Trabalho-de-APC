@@ -25,6 +25,8 @@ struct pessoas
 
     Texture2D Foto;
 
+    Texture2D FotoPassaporte;
+
 };
 
 struct pessoas PessoaAtual;
@@ -39,6 +41,7 @@ void LoadPessoas(int PessoaCount)
     //cara00.vencimento.mes = '11';
     //cara00.vencimento.ano = '82';
     cara00.Foto = LoadTexture("Textures/cara00.png");
+    cara00.FotoPassaporte = LoadTexture("Textures/ftidcara00.png");
 
     struct pessoas cara01;
     strcpy(cara01.nome, "druckbaitola");
