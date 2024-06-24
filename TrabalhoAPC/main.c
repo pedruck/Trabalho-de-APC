@@ -3,6 +3,7 @@
 #include "include/lbasic.h"
 #include "include/pessoas.h"
 #include "include/dialogo.h"
+#include "stdlib.h"
 
 
 #if defined(PLATFORM_WEB)
@@ -15,8 +16,12 @@ const int screenHeight = 720;
 
 int Count;
 int framesCounter;
+
+
 bool passaporteAberto;
 bool drag;
+bool raioxIconeAberto;
+bool ScanFeito;
 
 
 Vetor2D LocalizacaoMouse;
@@ -30,7 +35,8 @@ Texture2D passaporteText;
 Texture2D CrosshairText;
 Texture2D passaporteIcone;
 
-
+char * peso;
+char * pesoPassaporte;
 
 
     
@@ -44,9 +50,13 @@ Vector2 PessoaPosition;
 Retangulo passaporte;
 Retangulo passaporteIconeRec;
 
+Retangulo raiox;
+Retangulo raioxIconeRec;
 Font font;
 
 bool AvalicaoFoiFeita;
+
+
 
 
 
@@ -91,6 +101,9 @@ int WinMain(void)
     passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
     passaporteAberto = false;
     drag = false;
+    raioxIcone = LoadTexture("Textures/raioxicone0.png");
+    raioxIconeAberto = false;
+    drag = false;
 
 
     framesCounter = 0;
@@ -119,7 +132,10 @@ int WinMain(void)
     passaporteIconeRec.altura = passaporteIcone.height;
     
 
-
+    raioxIconeRec.x = 660;
+    raioxIconeRec.y = 20;
+    raioxIconeRec.largura = raioxIcone.widht;
+    raioxIconeRec.altura = raioxIcone.height;
     LoadPessoas(Count);
     LoadDialogo(Count);
     
@@ -268,20 +284,115 @@ void UpdateDrawFrame(void)
         
 
             }
+            
 
     }    
 
     // fim da logica do passaporte
 
+//------------------------- ---------------------------------------------------------------//
+    
+    //comeco da logica raiox
+   
+    if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, raioxIconeRec) == true && IsMouseButtonPressed(1) == true && raioxIconeAberto == false)
+        {
+            
+        raioxIconeAberto = true;
+
+
+
+        }
+
+        else if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, raioxIconeRec) == true && IsMouseButtonPressed(1) == true && raioxIconeAberto == true)
+        {
+            
+        raioxIconeAberto = false;
+
+
+
+        }
+
+        if (MouseDown(0) == true)
+        {
+
+            drag = true;
+
+        }
+        else if (MouseDown(0) == false)
+        {
+
+            drag = false;
+
+        }
+
+        if (passaporteAberto == true && drag == true)
+        {
+            
+            passaporte.x = LocalizacaoMouse.x - passaporte.largura/2;
+            
+            passaporte.y = LocalizacaoMouse.y - passaporte.altura/2;
+
+           
+
+        }
+
+        if(IsMouseButtonPressed(1) == true && passaporteAberto == true && ChecagemColisaoPontoRetangulo(LocalizacaoMouse, passaporteIconeRec) == false)
+        {
+
+        passaporteAberto = false;
+
+
+        }
+
+        if (passaporteAberto == false)
+        {
+
+            passaporte.x = -1000;
+            
+            passaporte.y = -1000;
+            
+        }
+
+    
+
+    if(IsMouseButtonPressed(1))
+    {
+
+            if (passaporteAberto == true)
+            {
+
+                passaporteIcone = LoadTexture("Textures/passaporteicone1.png");
+
+                 passaporte.x = 900;
+            
+                 passaporte.y = 100;
+
+
+
+            }
+
+            else if (passaporteAberto == false)
+            {
+
+            passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
+
+        
+
+            }
+
+
     
     //------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
 
-    if(IsMouseButtonPressed(0))
+    if(IsKeyPressed(KEY_C))
         {
             framesCounter = 0;
             Count++;
             LoadPessoas(Count);
             LoadDialogo(Count);
+
+            passaporteAberto = false;
+            passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
 
 
         }
@@ -292,6 +403,12 @@ void UpdateDrawFrame(void)
 
     //----------------------------------------------------------------------------------
 
+
+    
+
+
+
+
     //----------------------------------------------------------------------------------
 
     // Draw
@@ -299,9 +416,11 @@ void UpdateDrawFrame(void)
     BeginDrawing();
 
         ClearBackground(BLACK);
+
+        
   
         DrawTexture(bg1, 0, 0, WHITE);
-        DrawTextoSimples("peso aq", 500, 230, 21, BLACK);
+        DrawTextoSimples(TextFormat("%4.f kg", PessoaAtual.peso), 500, 230, 21, BLACK);
         DrawTextureEx(PessoaSprite, PessoaPosition, 0.0, 1.18, WHITE);
  
         DrawTexture(bg1bar, 0, 0, WHITE);
