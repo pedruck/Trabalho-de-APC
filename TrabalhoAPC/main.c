@@ -20,6 +20,7 @@ int framesCounter;
 
 bool passaporteAberto;
 bool drag;
+
 bool raioxIconeAberto;
 bool ScanFeito;
 
@@ -27,14 +28,14 @@ bool ScanFeito;
 Vetor2D LocalizacaoMouse;
 Texture2D IconePassaporte;
 Texture2D IconeRaioX;
-
+Texture2D raioxtext;
 Texture2D bg1;
 Texture2D division;
 Texture2D bg1bar;
 Texture2D passaporteText;
 Texture2D CrosshairText;
 Texture2D passaporteIcone;
-
+Texture2D raioxIcone;
 char * peso;
 char * pesoPassaporte;
 
@@ -67,7 +68,7 @@ void UpdateFrames(void)
     {
 
         passaporteText = LoadTexture("Textures/passport-blank.png");
-        
+        raioxtext = LoadTexture("Textures/BodyM1.png");
     }
 
     
@@ -131,11 +132,17 @@ int WinMain(void)
     passaporteIconeRec.largura = passaporteIcone.width;
     passaporteIconeRec.altura = passaporteIcone.height;
     
+    raiox.x= 800;
+    raiox.y = 350;
+
+    raiox.largura = raioxtext.width;
+    raiox.altura = raioxtext.height;
 
     raioxIconeRec.x = 660;
-    raioxIconeRec.y = 20;
-    raioxIconeRec.largura = raioxIcone.widht;
+    raioxIconeRec.y = 220;
+    raioxIconeRec.largura = raioxIcone.width;
     raioxIconeRec.altura = raioxIcone.height;
+    
     LoadPessoas(Count);
     LoadDialogo(Count);
     
@@ -325,31 +332,31 @@ void UpdateDrawFrame(void)
 
         }
 
-        if (passaporteAberto == true && drag == true)
+        if (raioxIconeAberto == true && drag == true)
         {
             
-            passaporte.x = LocalizacaoMouse.x - passaporte.largura/2;
+            raiox.x = LocalizacaoMouse.x - raiox.largura/2;
             
-            passaporte.y = LocalizacaoMouse.y - passaporte.altura/2;
+            raiox.y = LocalizacaoMouse.y - raiox.altura/2;
 
            
 
         }
 
-        if(IsMouseButtonPressed(1) == true && passaporteAberto == true && ChecagemColisaoPontoRetangulo(LocalizacaoMouse, passaporteIconeRec) == false)
+        if(IsMouseButtonPressed(1) == true && raioxIconeAberto == true && ChecagemColisaoPontoRetangulo(LocalizacaoMouse, raioxIconeRec) == false)
         {
 
-        passaporteAberto = false;
+        raioxIconeAberto = false;
 
 
         }
 
-        if (passaporteAberto == false)
+        if (raioxIconeAberto == false)
         {
 
-            passaporte.x = -1000;
+            raiox.x = -1000;
             
-            passaporte.y = -1000;
+            raiox.y = -1000;
             
         }
 
@@ -358,30 +365,30 @@ void UpdateDrawFrame(void)
     if(IsMouseButtonPressed(1))
     {
 
-            if (passaporteAberto == true)
+            if (raioxIconeAberto == true)
             {
 
-                passaporteIcone = LoadTexture("Textures/passaporteicone1.png");
+                raioxIcone = LoadTexture("Textures/raioxicone1.png");
 
-                 passaporte.x = 900;
+                 raiox.x = 900;
             
-                 passaporte.y = 100;
+                 raiox.y = 100;
 
 
 
             }
 
-            else if (passaporteAberto == false)
+            else if (raioxIconeAberto == false)
             {
 
-            passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
+            raioxIcone = LoadTexture("Textures/raioxicone0.png");
 
         
 
             }
 
 
-    
+    }
     //------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
 
     if(IsKeyPressed(KEY_C))
@@ -425,7 +432,7 @@ void UpdateDrawFrame(void)
  
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
-
+        DrawTextureEx(raioxIcone, (Vector2) {raioxIconeRec.x , raioxIconeRec.y}, 0.0, 0.7, WHITE);
         DrawTextureEx(passaporteIcone, (Vector2){660, 40}, 0.0, 0.7, WHITE);
         
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
@@ -434,8 +441,8 @@ void UpdateDrawFrame(void)
        
         DrawText(PessoaAtual.nome, passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
-        DrawTextureEx(PessoaRaioX, (Vector2) {screenWidth/2, screenHeight/2}, 0.0, 1, WHITE);
-
+        DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1, WHITE);
+        
         //DrawRectangle(passaporteIconeRec.x, passaporteIconeRec.y, passaporteIconeRec.largura,passaporteIconeRec.altura ,RED);
 
         DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
