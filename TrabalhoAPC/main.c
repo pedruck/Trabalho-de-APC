@@ -2,7 +2,7 @@
 #include "include/raylib.h"
 #include "include/lbasic.h"
 #include "include/pessoas.h"
-
+#include "include/dialogo.h"
 
 
 #if defined(PLATFORM_WEB)
@@ -14,6 +14,7 @@ const int screenWidth = 1680;
 const int screenHeight = 720;
 
 int Count;
+int framesCounter;
 
 
 
@@ -78,6 +79,8 @@ int WinMain(void)
     bg1bar = LoadTexture("Textures/p-p-bar1_scaled.png");
     font = LoadFont("Textures/BMmini.TTF");
     CrosshairText = LoadTexture("Textures/Cursor.png");
+
+    framesCounter = 0;
     
     
 
@@ -91,12 +94,13 @@ int WinMain(void)
     passaporte.y = 350;
 
     PessoaPosition.x = -50;
-    PessoaPosition.y = 82;
+    PessoaPosition.y = 40;
 
     passaporte.largura = passaporteText.width;
     passaporte.altura = passaporteText.height;
 
     LoadPessoas(Count);
+    LoadDialogo(Count);
     
 
     
@@ -116,6 +120,8 @@ int WinMain(void)
             ToggleFullscreen();
         
         UpdateDrawFrame();
+
+        framesCounter++;
 
     }
 
@@ -168,12 +174,16 @@ void UpdateDrawFrame(void)
     // ------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
 
     if(IsMouseButtonPressed(0))
-    {
-
+        {
+        framesCounter = 0;
         Count++;
         LoadPessoas(Count);
+        LoadDialogo(Count);
 
-    }
+        
+
+        }
+
 
 
     //----------------------------------------------------------------------------------
@@ -195,8 +205,13 @@ void UpdateDrawFrame(void)
         DrawText("Nome do cara", passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
         
+       
+        DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
+
+
+
         DrawText("DATA:", 0, 0, 20, LIGHTGRAY);
-      //  DrawText(" DATA:", 0, 0, 20, LIGHTGRAY);
+      
 
     EndDrawing();
     //----------------------------------------------------------------------------------
