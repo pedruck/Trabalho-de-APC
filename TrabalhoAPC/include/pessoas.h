@@ -10,13 +10,14 @@ Texture2D PassaporteSprite;
 Texture2D PessoaRaioX;
 
 
-
 struct Vencimento
 {
     char dia;
     char mes;
     char ano;
 };
+
+int IDData;
 
 
 struct pessoas
@@ -30,6 +31,8 @@ struct pessoas
     float altura;
 
     float alturaPassaporte;
+
+    char * sexo;
 
     int ID;
 
@@ -52,11 +55,11 @@ void LoadPessoas(int PessoaCount)
 {
     struct pessoas cara00;
     strcpy(cara00.nome, "gustavo");
-    cara00.ID = 1;
     cara00.peso = 70;
     cara00.pesoPassaporte = 70;
     cara00.altura = 169;
     cara00.alturaPassaporte = 182;
+    strcpy(cara00.sexo, "M");
     //cara00.vencimento.dia = '22';
     //cara00.vencimento.mes = '11';
     //cara00.vencimento.ano = '82';
@@ -67,11 +70,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas cara01;
     strcpy(cara01.nome, "druckbaitola");
-    cara01.ID = 2;
     cara01.peso = 80;
     cara01.pesoPassaporte = 80;
     cara01.altura = 158;
     cara01.alturaPassaporte = 158;
+    strcpy(cara01.sexo, "M");
     // cara01.vencimento.dia = '10';
     //cara01.vencimento.mes = '05';
     //cara01.vencimento.ano = '79';
@@ -81,11 +84,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas cara02;
     strcpy(cara02.nome, "tiagogostoso");
-    cara02.ID = 3;
     cara02.peso = 78;
     cara02.pesoPassaporte = 73;
     cara02.altura = 168;
     cara02.alturaPassaporte = 168;
+    strcpy(cara02.sexo, "M");
    // cara02.vencimento.dia = '03';
    // cara02.vencimento.mes = '05';
    // cara02.vencimento.ano = '85';
@@ -95,11 +98,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas cara03;
     strcpy(cara03.nome, "heitorinutil");
-    cara03.ID = 4;
     cara03.peso = 84;
     cara03.pesoPassaporte = 84; 
     cara03.altura = 167;
     cara03.alturaPassaporte = 167;
+    strcpy(cara03.sexo, "M");
     //cara03.vencimento.dia = '30';
    // cara03.vencimento.mes = '10';
    // cara03.vencimento.ano = '87';
@@ -110,11 +113,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas mina00;
     strcpy(mina00.nome, "erica");
-    mina00.ID = 5;
     mina00.peso = 60;
     mina00.pesoPassaporte = 60;
     mina00.altura = 165;
     mina00.alturaPassaporte = 165;
+    strcpy(mina00.sexo, "F");
    // mina00.vencimento.dia = '07';
    // mina00.vencimento.mes = '01';
    // mina00.vencimento.ano = '83';
@@ -124,11 +127,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas mina01;
     strcpy(mina01.nome, "thaiscarla");
-    mina01.ID = 1;
     mina01.peso = 40;
     mina01.pesoPassaporte = 45;
     mina01.altura = 157;
     mina01.alturaPassaporte = 157;
+    strcpy(mina01.sexo, "F");
    // mina01.vencimento.dia = '09';
    // mina01.vencimento.mes = '03';
     //mina01.vencimento.ano = '85';
@@ -138,11 +141,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas mina02;
     strcpy(mina02.nome, "Prof Rose");
-    mina02.ID = 1;
     mina02.peso = 90;
     mina02.pesoPassaporte = 90;
     mina02.altura = 162;
     mina02.alturaPassaporte = 175;
+    strcpy(mina02.sexo, "F");
    // mina02.vencimento.dia = '08';
     //mina02.vencimento.mes = '02';
    // mina02.vencimento.ano = '86';
@@ -152,11 +155,11 @@ void LoadPessoas(int PessoaCount)
 
     struct pessoas mina03;
     strcpy(mina03.nome, "receba");
-    mina03.ID = 1;
     mina03.peso = 52;
     mina03.pesoPassaporte = 62;
     mina03.altura = 168;
     mina03.alturaPassaporte = 168;
+    strcpy(mina03.sexo, "F");
   //  mina03.vencimento.dia = '10';
    // mina03.vencimento.mes = '11';
   //  mina03.vencimento.ano = '85';
@@ -166,6 +169,8 @@ void LoadPessoas(int PessoaCount)
 
 
     //------------------------------------------------------------------
+   
+
 
     
 
@@ -198,6 +203,7 @@ void LoadPessoas(int PessoaCount)
         break;
 
     }
+
 
     PessoaSprite = PessoaAtual.Foto;
     PassaporteSprite = PessoaAtual.FotoPassaporte;

@@ -23,7 +23,7 @@ void LoadDialogo (int PessoaCount)
         MensagemInicial = "Não vejo minha filha a 5 anos! Hoje é o grande dia...";       
         break;
     case 4:
-        MensagemInicial = "Esse Heitor é muito vagabundo... ta maluco"; 
+        MensagemInicial = "Ontem a noite 4 negros acabaram com meu buraco... foi doloroso"; 
         break;
     case 5:
         MensagemInicial = "Não deixe o cara que está antes de mim passar...\nele é perigoso";        

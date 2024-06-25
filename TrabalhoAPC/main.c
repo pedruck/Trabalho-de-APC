@@ -17,6 +17,9 @@ const int screenHeight = 720;
 int Count;
 int framesCounter;
 
+char * estadoemprego;
+int pontuacao;
+
 
 bool passaporteAberto;
 bool drag;
@@ -39,6 +42,8 @@ Texture2D raioxIcone;
 char * peso;
 char * pesoPassaporte;
 
+int comissao;
+
 
     
 
@@ -54,6 +59,11 @@ Retangulo passaporteIconeRec;
 Retangulo raiox;
 Retangulo raioxIconeRec;
 Font font;
+
+Retangulo deter;
+Retangulo aprovar;
+Retangulo rejeitar;
+Retangulo scan;
 
 bool AvalicaoFoiFeita;
 
@@ -71,7 +81,8 @@ void UpdateFrames(void)
         raioxtext = LoadTexture("Textures/BodyM1.png");
     }
 
-    
+
+   
 
 }
 
@@ -86,6 +97,8 @@ void UpdateDrawFrame(void);     // Update
 int WinMain(void)
 {
     Count = 0;
+
+    pontuacao = 110;
     
     // Inicializacao
     //--------------------------------------------------------------------------------------
@@ -137,11 +150,34 @@ int WinMain(void)
 
     raiox.largura = raioxtext.width;
     raiox.altura = raioxtext.height;
-
+    
     raioxIconeRec.x = 660;
     raioxIconeRec.y = 220;
     raioxIconeRec.largura = raioxIcone.width;
     raioxIconeRec.altura = raioxIcone.height;
+
+    deter.x = 200;
+    deter.y = 652;
+    deter.altura = 50;
+    deter.largura = 224;
+
+    aprovar.x = 20;
+    aprovar.y = 652;
+    aprovar.altura = 48;
+    aprovar.largura = 146;
+
+    rejeitar.x = 458;
+    rejeitar.y = 652;
+    rejeitar.altura = 48;
+    rejeitar.largura = 146;
+
+    scan.x = 0;
+    scan.y = 560;
+    scan.altura = 50;
+    scan.largura = 50;
+
+
+    
     
     LoadPessoas(Count);
     LoadDialogo(Count);
@@ -166,6 +202,40 @@ int WinMain(void)
         UpdateDrawFrame();
 
         framesCounter++;
+
+         if (pontuacao > 100)
+    {
+
+        estadoemprego = "Estável";
+
+    }
+    else if (pontuacao < 100 && pontuacao > 60)
+    {
+
+        estadoemprego = "Médio";    
+
+    }
+    else if (pontuacao < 60 && pontuacao > 30)
+    {
+
+        estadoemprego = "Preucupante";    
+
+    }
+    else if (pontuacao < 30 && pontuacao > 15)
+    {
+
+        estadoemprego = "Crítico";    
+
+    }
+    else if (pontuacao < 15)
+    {
+
+        estadoemprego = "Demitido";
+
+    }
+
+
+    
 
     }
 
@@ -387,6 +457,7 @@ void UpdateDrawFrame(void)
 
             }
 
+    //fim do raiox
 
     }
     //------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
@@ -399,12 +470,15 @@ void UpdateDrawFrame(void)
             LoadDialogo(Count);
 
             passaporteAberto = false;
+            raioxIconeAberto = false;
+            
             passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
+            raioxIcone = LoadTexture("Textures/raioxicone0.png");;
 
 
         }
 
-    //---------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
 
 
 
@@ -439,18 +513,34 @@ void UpdateDrawFrame(void)
 
        // DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
        
-        DrawText(PessoaAtual.nome, passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
-        DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
-        DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1, WHITE);
+        DrawText(TextFormat("%4.f cm", PessoaAtual.altura), passaporte.x + 50, passaporte.y + 350, 20, BLACK);
+        //DrawText(TextFormat("%dkg", PessoaAtual.peso), passaporte.x, passaporte.y, 20, BLACK);
+        DrawTextoSimples(PessoaAtual.sexo, passaporte.x + 30, passaporte.y + 330, 20, BLACK);
+        DrawTextoSimples(PessoaAtual.nome, passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
         
+        DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
+        DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1.7, WHITE);    
         //DrawRectangle(passaporteIconeRec.x, passaporteIconeRec.y, passaporteIconeRec.largura,passaporteIconeRec.altura ,RED);
 
-        DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
 
-        DrawText("DATA:", 0, 0, 20, LIGHTGRAY);
+        DrawRectangle(aprovar.x, aprovar.y, aprovar.largura, aprovar.altura, RED);
+        DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
+        DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
+        DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
+
+
+        DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
+        DrawTextoSimples("DATA: 21/02/1982", 0, 0, 20, WHITE ); 
+        //DrawText("DATA: ", 0, 0, 20, LIGHTGRAY);
+        
+        DrawTextoSimples("Estado do emprego:", 0, 40, 20, WHITE );    //pedro druck mama rola
+        DrawTextoSimples(estadoemprego, 200, 40, 20, WHITE);
       
     EndDrawing();
     //----------------------------------------------------------------------------------
+
+
+    
 }
 
 
