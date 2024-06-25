@@ -27,6 +27,7 @@ bool drag;
 bool raioxIconeAberto;
 bool ScanFeito;
 
+bool pause;
 
 Vetor2D LocalizacaoMouse;
 Texture2D IconePassaporte;
@@ -105,7 +106,7 @@ int WinMain(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
     
-    
+     InitAudioDevice();
 
     bg1 = LoadTexture("Textures/p-p-bg1_scaled.png");
     division = LoadTexture("Textures/p-p-division_scaled.png");
@@ -118,10 +119,13 @@ int WinMain(void)
     raioxIcone = LoadTexture("Textures/raioxicone0.png");
     raioxIconeAberto = false;
     drag = false;
+    Music music = LoadMusicStream("Textures/Vento.mp3");
 
+PlayMusicStream(music);
+float timePlayed = 0.0f; 
 
     framesCounter = 0;
-    
+       
     
 
     //DisableCursor();
@@ -200,9 +204,22 @@ int WinMain(void)
             ToggleFullscreen();
         
         UpdateDrawFrame();
-
+        UpdateMusicStream(music);
         framesCounter++;
+if (IsKeyPressed(KEY_SPACE))
+        {
+            StopMusicStream(music);
+            PlayMusicStream(music);
+        }
+        if (IsKeyPressed(KEY_P))
+        {
+            pause = !pause;
 
+            if (pause) PauseMusicStream(music);
+            else ResumeMusicStream(music);
+        }
+        timePlayed = GetMusicTimePlayed(music)/GetMusicTimeLength(music);
+        if (timePlayed > 1.0f) timePlayed = 1.0f;
          if (pontuacao > 100)
     {
 
@@ -238,9 +255,11 @@ int WinMain(void)
     
 
     }
-
+     
     // De-Initialization
     //--------------------------------------------------------------------------------------
+    UnloadMusicStream(music);
+     CloseAudioDevice();
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
@@ -538,8 +557,7 @@ void UpdateDrawFrame(void)
       
     EndDrawing();
     //----------------------------------------------------------------------------------
-
-
+    
     
 }
 
