@@ -32,7 +32,7 @@ struct pessoas
 
     float alturaPassaporte;
 
-    char * sexo;
+    char sexo[200];
 
     int ID;
 
