@@ -68,6 +68,22 @@ Retangulo scan;
 
 bool AvalicaoFoiFeita;
 
+void ProximaPessoa()
+{
+            framesCounter = 0;
+            Count++;
+            LoadPessoas(Count);
+            LoadDialogo(Count);
+
+            passaporteAberto = false;
+            raioxIconeAberto = false;
+            
+            passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
+            raioxIcone = LoadTexture("Textures/raioxicone0.png");
+
+
+}
+
 
 
 
@@ -220,25 +236,28 @@ if (IsKeyPressed(KEY_SPACE))
         }
         timePlayed = GetMusicTimePlayed(music)/GetMusicTimeLength(music);
         if (timePlayed > 1.0f) timePlayed = 1.0f;
+
+
+
          if (pontuacao > 100)
     {
 
         estadoemprego = "Estável";
 
     }
-    else if (pontuacao < 100 && pontuacao > 60)
+    else if (pontuacao < 100 && pontuacao >= 70)
     {
 
         estadoemprego = "Médio";    
 
     }
-    else if (pontuacao < 60 && pontuacao > 30)
+    else if (pontuacao < 70 && pontuacao >= 40)
     {
 
         estadoemprego = "Preucupante";    
 
     }
-    else if (pontuacao < 30 && pontuacao > 15)
+    else if (pontuacao < 40 && pontuacao >= 15)
     {
 
         estadoemprego = "Crítico";    
@@ -481,27 +500,47 @@ void UpdateDrawFrame(void)
     }
     //------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
 
-    if(IsKeyPressed(KEY_C))
+        
+
+    //---------------------------------(CODIGO BOTOES)-------------------------------------------------
+
+    if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, aprovar) == true && IsMouseButtonPressed(0) == true)
+    {
+
+        if (PessoaValida() == false)
         {
-            framesCounter = 0;
-            Count++;
-            LoadPessoas(Count);
-            LoadDialogo(Count);
 
-            passaporteAberto = false;
-            raioxIconeAberto = false;
-            
-            passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
-            raioxIcone = LoadTexture("Textures/raioxicone0.png");;
-
+            pontuacao -= 50;
 
         }
 
-    //----------------------------------------------------------------------------------
+        ProximaPessoa();
+
+
+    }
+
+    if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, rejeitar) == true && IsMouseButtonPressed(0) == true)
+    {
+
+        if (PessoaValida() == true)
+        {
+
+            pontuacao -= 50;
+
+        }
+
+        ProximaPessoa();
+
+
+    }
 
 
 
-    //----------------------------------------------------------------------------------
+  
+
+
+
+    //-------------------------------------------------------------------------------------------------
 
 
     
@@ -542,10 +581,10 @@ void UpdateDrawFrame(void)
         //DrawRectangle(passaporteIconeRec.x, passaporteIconeRec.y, passaporteIconeRec.largura,passaporteIconeRec.altura ,RED);
 
 
-        DrawRectangle(aprovar.x, aprovar.y, aprovar.largura, aprovar.altura, RED);
-        DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
-        DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
-        DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
+      //  DrawRectangle(aprovar.x, aprovar.y, aprovar.largura, aprovar.altura, RED);
+     //   DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
+     //   DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
+      //  DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
 
 
         DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
@@ -553,7 +592,9 @@ void UpdateDrawFrame(void)
         //DrawText("DATA: ", 0, 0, 20, LIGHTGRAY);
         
         DrawTextoSimples("Estado do emprego:", 0, 40, 20, WHITE );    //pedro druck mama rola
-        DrawTextoSimples(estadoemprego, 200, 40, 20, WHITE);
+        DrawTextoSimples(estadoemprego, 200, 44, 20, WHITE);
+
+
       
     EndDrawing();
     //----------------------------------------------------------------------------------
