@@ -602,12 +602,13 @@ bool ImagemCheck()
 
 }
 
-bool PessoaValida(void)
+
+bool PessoaBombada()
 {
 
     bool saida = false;
 
-    if( ImagemCheck() == true && PesoCheck() == true && AlturaCheck() == true)
+    if (PessoaAtual.bombado == true)
     {
 
         saida = true;
@@ -618,12 +619,14 @@ bool PessoaValida(void)
 
 }
 
-bool PessoaBombada(void)
+
+
+bool PessoaValida(void)
 {
 
     bool saida = false;
 
-    if (PessoaAtual.bombado == true)
+    if( ImagemCheck() == true && PessoaBombada() == false && AlturaCheck() == true)
     {
 
         saida = true;

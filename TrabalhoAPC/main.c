@@ -30,6 +30,8 @@ bool ScanFeito;
 
 bool pause;
 
+
+
 Vetor2D LocalizacaoMouse;
 Texture2D IconePassaporte;
 Texture2D IconeRaioX;
@@ -86,6 +88,7 @@ void ProximaPessoa()
 
             ScanFeito = false;
             ScanSemNecessidade = false;
+            
 
 
 }
@@ -120,6 +123,7 @@ void UpdateDrawFrame(void);     // Update
 int WinMain(void)
 {
     Count = 0;
+   
 
     pontuacao = 110;
     
@@ -533,7 +537,7 @@ void UpdateDrawFrame(void)
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, aprovar) == true && IsMouseButtonPressed(0) == true)
     {
 
-        if (PessoaValida() == true) pontuacao -= 15;
+        if (PessoaValida() == false) pontuacao -= 15;
 
         if (ScanSemNecessidade == true) pontuacao -= 10;
 
@@ -567,6 +571,7 @@ void UpdateDrawFrame(void)
 
     }
 
+
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, deter) == true && IsMouseButtonPressed(0) == true)
     {
 
@@ -582,7 +587,7 @@ void UpdateDrawFrame(void)
 
   
 
-
+    printf("%d\n", pontuacao);
 
     //-------------------------------------------------------------------------------------------------
 
