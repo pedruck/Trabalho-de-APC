@@ -72,7 +72,7 @@ struct pessoas
 
     struct Vencimento vencimento;
 
-    
+    bool bombado;
 
     struct FotoPessoa Foto;
 
@@ -236,6 +236,7 @@ void LoadPessoas(int PessoaCount)
     cara00.FotoPassaporte = PassaportM0;
     cara00.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     cara00.ID = 1;
+    cara00.bombado = false;
 
 
 
@@ -253,6 +254,7 @@ void LoadPessoas(int PessoaCount)
     cara01.FotoPassaporte = PassaportM1;
     cara01.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     cara01.ID = 2;
+    cara01.bombado = false;
 
     struct pessoas cara02;
     strcpy(cara02.nome, "tiagogostoso");
@@ -268,6 +270,7 @@ void LoadPessoas(int PessoaCount)
     cara02.FotoPassaporte = PassaportM2;
     cara02.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     cara02.ID = 3;
+    cara02.bombado = true;
 
 
     struct pessoas cara03;
@@ -284,6 +287,7 @@ void LoadPessoas(int PessoaCount)
     cara03.FotoPassaporte = PassaportM6;
     cara03.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     cara03.ID = 3;
+    cara03.bombado = false;
 
     struct pessoas cara04; 
     strcpy(cara04.nome, "borabill");
@@ -298,6 +302,7 @@ void LoadPessoas(int PessoaCount)
     cara04.Foto = SpriteM4;
     cara04.FotoPassaporte = PassaportM4;
     cara04.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara04.bombado = false;
 
     cara04.ID = 4;
 
@@ -315,8 +320,8 @@ void LoadPessoas(int PessoaCount)
     cara05.FotoPassaporte = PassaportM5;
     cara05.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     cara05.ID = 5;
-
-    
+    cara05.bombado = false;
+  
 
     struct pessoas cara06;
     strcpy(cara06.nome, "luvadepedreiro");
@@ -332,6 +337,8 @@ void LoadPessoas(int PessoaCount)
     cara06.FotoPassaporte = PassaportM6;
     cara06.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     cara06.ID = 7;
+    cara06.bombado = true;
+
 
     struct pessoas cara07;
     strcpy(cara07.nome, "scarduabroxa");
@@ -347,6 +354,7 @@ void LoadPessoas(int PessoaCount)
     cara07.FotoPassaporte = PassaportM7;
     cara07.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     cara07.ID = 7;
+    cara07.bombado = false;
 
 
 
@@ -364,6 +372,7 @@ void LoadPessoas(int PessoaCount)
     mina00.FotoPassaporte = PassaportF0;
     mina00.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     mina00.ID = 8;
+    mina00.bombado = false;
 
     struct pessoas mina01;
     strcpy(mina01.nome, "thaiscarla");
@@ -379,6 +388,7 @@ void LoadPessoas(int PessoaCount)
     mina01.FotoPassaporte = PassaportF1;
     mina01.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     mina01.ID = 9;
+    mina01.bombado = true;
 
     struct pessoas mina02;
     strcpy(mina02.nome, "Prof Rose");
@@ -394,6 +404,8 @@ void LoadPessoas(int PessoaCount)
     mina02.FotoPassaporte = PassaportF2;
     mina02.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     mina02.ID = 10;
+    mina02.bombado = false;
+
 
     struct pessoas mina03;
     strcpy(mina03.nome, "receba");
@@ -409,6 +421,7 @@ void LoadPessoas(int PessoaCount)
     mina03.FotoPassaporte = PassaportF3;
     mina03.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     mina03.ID = 11;
+    mina03.bombado = true;
 
     struct pessoas mina04;
     strcpy(mina04.nome, "elamesma");
@@ -424,6 +437,7 @@ void LoadPessoas(int PessoaCount)
     mina04.FotoPassaporte = PassaportF4;
     mina04.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     mina04.ID = 13;
+    mina04.bombado = false;
 
     struct pessoas mina05;
     strcpy(mina05.nome, "gorda");
@@ -439,6 +453,7 @@ void LoadPessoas(int PessoaCount)
     mina05.FotoPassaporte = PassaportF5;
     mina05.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     mina05.ID = 13;
+    mina05.bombado = false;
 
     struct pessoas mina06;
     strcpy(mina06.nome, "erica");
@@ -454,6 +469,7 @@ void LoadPessoas(int PessoaCount)
     mina06.FotoPassaporte = PassaportF3;
     mina06.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     mina06.ID = 14;
+    mina06.bombado = false;
 
     struct pessoas mina07;
     strcpy(mina07.nome, "sim");
@@ -469,9 +485,10 @@ void LoadPessoas(int PessoaCount)
     mina07.FotoPassaporte = PassaportF7;
     mina07.RaioXSprite = LoadTexture("Textures/BodyM1.png");
     mina07.ID = 15;
+    mina07.bombado = false;
 
 
-    //------------------------------------------------------------------
+//--------------------------------------------------------------------------
    
 
 
@@ -581,8 +598,6 @@ bool ImagemCheck()
 
     }
 
-    printf_s("leoeoeoeo");
-
     return saida;
 
 }
@@ -593,6 +608,22 @@ bool PessoaValida(void)
     bool saida = false;
 
     if( ImagemCheck() == true && PesoCheck() == true && AlturaCheck() == true)
+    {
+
+        saida = true;
+
+    }
+
+    return saida;
+
+}
+
+bool PessoaBombada(void)
+{
+
+    bool saida = false;
+
+    if (PessoaAtual.bombado == true)
     {
 
         saida = true;

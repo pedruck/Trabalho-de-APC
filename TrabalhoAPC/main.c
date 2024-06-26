@@ -23,6 +23,7 @@ int pontuacao;
 
 bool passaporteAberto;
 bool drag;
+bool ScanSemNecessidade;
 
 bool raioxIconeAberto;
 bool ScanFeito;
@@ -44,6 +45,8 @@ char * peso;
 char * pesoPassaporte;
 
 int comissao;
+
+bool ScanFeito;
 
 
     
@@ -80,6 +83,9 @@ void ProximaPessoa()
             
             passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
             raioxIcone = LoadTexture("Textures/raioxicone0.png");
+
+            ScanFeito = false;
+            ScanSemNecessidade = false;
 
 
 }
@@ -135,6 +141,8 @@ int WinMain(void)
     raioxIcone = LoadTexture("Textures/raioxicone0.png");
     raioxIconeAberto = false;
     drag = false;
+    ScanFeito = false;
+    ScanSemNecessidade = false;
     Music music = LoadMusicStream("Textures/Vento.mp3");
 
 PlayMusicStream(music);
@@ -408,6 +416,24 @@ void UpdateDrawFrame(void)
 //------------------------- ---------------------------------------------------------------//
     
     //comeco da logica raiox
+
+    if (ScanFeito == true)
+    {
+
+            raioxIconeRec.x = 660;
+            raioxIconeRec.y = 220;
+
+    }
+    else if (ScanFeito == false)
+    {
+
+            raioxIconeRec.x = -1000;
+            raioxIconeRec.y = -1000;
+
+    }
+
+
+
    
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, raioxIconeRec) == true && IsMouseButtonPressed(1) == true && raioxIconeAberto == false)
         {
@@ -507,12 +533,10 @@ void UpdateDrawFrame(void)
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, aprovar) == true && IsMouseButtonPressed(0) == true)
     {
 
-        if (PessoaValida() == false)
-        {
+        if (PessoaValida() == true) pontuacao -= 15;
 
-            pontuacao -= 50;
+        if (ScanSemNecessidade == true) pontuacao -= 10;
 
-        }
 
         ProximaPessoa();
 
@@ -522,17 +546,37 @@ void UpdateDrawFrame(void)
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, rejeitar) == true && IsMouseButtonPressed(0) == true)
     {
 
-        if (PessoaValida() == true)
-        {
-
-            pontuacao -= 50;
-
-        }
+        if (PessoaValida() == true) pontuacao -= 15;
+        
+        if (ScanSemNecessidade == true) pontuacao -= 10;
 
         ProximaPessoa();
 
 
     }
+
+   if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, scan) == true && IsMouseButtonPressed(0) == true)
+    {
+
+        if (PesoCheck() == true) ScanSemNecessidade = true;
+
+        ScanFeito = true;
+    
+        
+
+
+    }
+
+    if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, deter) == true && IsMouseButtonPressed(0) == true)
+    {
+
+        if (PessoaBombada() == false) pontuacao -= 30;
+    
+        ProximaPessoa();
+
+
+    }   
+
 
 
 
