@@ -110,65 +110,62 @@ void LoadPessoas(int PessoaCount)
     cara03.FotoPassaporte = LoadTexture("Textures/ftidcara03.png");
     cara03.RaioXSprite = LoadTexture("Textures/BodyM1.png");
 
-    //-----------------------------------------------------------------------
     struct pessoas cara04; 
     strcpy(cara04.nome, "borabill");
-    cara04.peso = 84;
-    cara04.pesoPassaporte = 84; 
+    cara04.peso = 87;
+    cara04.pesoPassaporte = 87; 
     cara04.altura = 167;
     cara04.alturaPassaporte = 167;
     strcpy(cara04.sexo, "M");
     //cara04.vencimento.dia = '30';
    // cara04.vencimento.mes = '10';
    // cara04.vencimento.ano = '87';
-    cara04.Foto = LoadTexture("Textures/cara03.png");
-    cara04.FotoPassaporte = LoadTexture("Textures/ftidcara03.png");
+    cara04.Foto = LoadTexture("Textures/cara04.png");
+    cara04.FotoPassaporte = LoadTexture("Textures/ftidcara04.png");
     cara04.RaioXSprite = LoadTexture("Textures/BodyM1.png");
 
     struct pessoas cara05;
     strcpy(cara05.nome, "amoeldenring");
-    cara05.peso = 84;
-    cara05.pesoPassaporte = 84; 
-    cara05.altura = 167;
-    cara05.alturaPassaporte = 167;
+    cara05.peso = 79;
+    cara05.pesoPassaporte = 79; 
+    cara05.altura = 163;
+    cara05.alturaPassaporte = 163;
     strcpy(cara05.sexo, "M");
     //cara05.vencimento.dia = '30';
    // cara05.vencimento.mes = '10';
    // cara05.vencimento.ano = '87';
-    cara05.Foto = LoadTexture("Textures/cara03.png");
-    cara05.FotoPassaporte = LoadTexture("Textures/ftidcara03.png");
+    cara05.Foto = LoadTexture("Textures/cara05.png");
+    cara05.FotoPassaporte = LoadTexture("Textures/ftidcara05.png");
     cara05.RaioXSprite = LoadTexture("Textures/BodyM1.png");
 
     struct pessoas cara06;
     strcpy(cara06.nome, "luvadepedreiro");
-    cara06.peso = 84;
-    cara06.pesoPassaporte = 84; 
-    cara06.altura = 167;
-    cara06.alturaPassaporte = 167;
+    cara06.peso = 90;
+    cara06.pesoPassaporte = 90; 
+    cara06.altura = 190;
+    cara06.alturaPassaporte = 192;
     strcpy(cara06.sexo, "M");
     //cara06.vencimento.dia = '30';
    // cara06.vencimento.mes = '10';
    // cara06.vencimento.ano = '87';
-    cara06.Foto = LoadTexture("Textures/cara03.png");
-    cara06.FotoPassaporte = LoadTexture("Textures/ftidcara03.png");
-    cara06.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara06.Foto = LoadTexture("Textures/cara06.png");
+    cara06.FotoPassaporte = LoadTexture("Textures/ftidcara06.png");
+    cara06.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
 
     struct pessoas cara07;
     strcpy(cara07.nome, "scarduabroxa");
-    cara07.peso = 84;
-    cara07.pesoPassaporte = 84; 
-    cara07.altura = 167;
-    cara07.alturaPassaporte = 167;
+    cara07.peso = 96;
+    cara07.pesoPassaporte = 96; 
+    cara07.altura = 160;
+    cara07.alturaPassaporte = 160;
     strcpy(cara07.sexo, "M");
     //cara07.vencimento.dia = '30';
    // cara07.vencimento.mes = '10';
    // cara07.vencimento.ano = '87';
-    cara07.Foto = LoadTexture("Textures/cara03.png");
-    cara07.FotoPassaporte = LoadTexture("Textures/ftidcara03.png");
+    cara07.Foto = LoadTexture("Textures/cara07.png");
+    cara07.FotoPassaporte = LoadTexture("Textures/ftidcara07.png");
     cara07.RaioXSprite = LoadTexture("Textures/BodyM1.png");
 
-
-    //-----------------------------------------------------------------
 
 
     struct pessoas mina00;
@@ -227,6 +224,62 @@ void LoadPessoas(int PessoaCount)
     mina03.FotoPassaporte = LoadTexture("Textures/ftidmina03.png");
     mina03.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
 
+    struct pessoas mina04;
+    strcpy(mina04.nome, "elamesma");
+    mina04.peso = 65;
+    mina04.pesoPassaporte = 65;
+    mina04.altura = 163;
+    mina04.alturaPassaporte = 163;
+    strcpy(mina04.sexo, "F");
+   // mina00.vencimento.dia = '07';
+   // mina00.vencimento.mes = '01';
+   // mina00.vencimento.ano = '83';
+    mina00.Foto = LoadTexture("Textures/mina04.png");
+    mina00.FotoPassaporte = LoadTexture("Textures/ftidmina04.png");
+    mina00.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+
+    struct pessoas mina05;
+    strcpy(mina05.nome, "gorda");
+    mina05.peso = 80;
+    mina05.pesoPassaporte = 80;
+    mina05.altura = 165;
+    mina05.alturaPassaporte = 165;
+    strcpy(mina05.sexo, "F");
+   // mina00.vencimento.dia = '07';
+   // mina00.vencimento.mes = '01';
+   // mina00.vencimento.ano = '83';
+    mina05.Foto = LoadTexture("Textures/mina05.png");
+    mina05.FotoPassaporte = LoadTexture("Textures/ftidmina05.png");
+    mina05.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+
+    struct pessoas mina06;
+    strcpy(mina06.nome, "erica");
+    mina06.peso = 55;
+    mina06.pesoPassaporte = 55;
+    mina06.altura = 179;
+    mina06.alturaPassaporte = 179;
+    strcpy(mina06.sexo, "F");
+   // mina00.vencimento.dia = '07';
+   // mina00.vencimento.mes = '01';
+   // mina00.vencimento.ano = '83';
+    mina06.Foto = LoadTexture("Textures/mina06.png");
+    mina06.FotoPassaporte = LoadTexture("Textures/ftidmina06.png");
+    mina06.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+
+    struct pessoas mina07;
+    strcpy(mina07.nome, "sim");
+    mina07.peso = 79;
+    mina07.pesoPassaporte = 79;
+    mina07.altura = 165;
+    mina07.alturaPassaporte = 165;
+    strcpy(mina07.sexo, "F");
+   // mina00.vencimento.dia = '07';
+   // mina00.vencimento.mes = '01';
+   // mina00.vencimento.ano = '83';
+    mina07.Foto = LoadTexture("Textures/mina07.png");
+    mina07.FotoPassaporte = LoadTexture("Textures/ftidmina07.png");
+    mina07.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+
 
     //------------------------------------------------------------------
    
@@ -273,7 +326,18 @@ void LoadPessoas(int PessoaCount)
     case 11:
         PessoaAtual = mina03;
         break;
-
+    case 12:
+        PessoaAtual = mina04;
+        break;
+    case 13:
+        PessoaAtual = mina05;
+        break;
+    case 14:
+        PessoaAtual = mina06;
+        break;
+    case 15:
+        PessoaAtual = mina07;
+        break;
     }
 
 
