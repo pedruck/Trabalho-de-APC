@@ -587,7 +587,7 @@ void UpdateDrawFrame(void)
 
   
 
-    printf("%d\n", pontuacao);
+    //printf("%d\n", pontuacao);
 
     //-------------------------------------------------------------------------------------------------
 
@@ -622,7 +622,7 @@ void UpdateDrawFrame(void)
        
         DrawText(TextFormat("%4.f cm", PessoaAtual.altura), passaporte.x + 250, passaporte.y + 375, 20, BLACK);
         DrawTextoSimples(TextFormat("%4.fkg", PessoaAtual.pesoPassaporte), passaporte.x + 240, passaporte.y + 465, 20, BLACK);
-        DrawTextoSimples(PessoaAtual.sexo, passaporte.x + 260, passaporte.y + 400, 20, BLACK);
+        DrawTextoSimples(TextFormat("%c",PessoaAtual.sexo), passaporte.x + 260, passaporte.y + 400, 20, BLACK);
         DrawTextoSimples(PessoaAtual.nome, passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
         
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);

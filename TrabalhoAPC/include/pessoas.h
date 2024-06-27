@@ -26,37 +26,138 @@ struct FotoPessoa
     
 
     int FotoID;
+    int altura;
+    
+
+    
 
 };
 
+int Random;
+char Sexo;
+int Peso;
+int PesoPassaporte;
+int P, S;
+
+char Nome[20];
+
+bool PessoaErrada;
+
+
+
+//AQUI TIAGO PORRAAAAAAAA
+
+void LoadInfoRandom()
+{
+
+char * PrimeiroNome;
+char * SegundoNome;
+
+char PrimeirosNomesMasculinos[11][10] = {"Erick", "Pedro","Mateus", "Felipe", "Fernando", "Mario", "Rafael", "Lucas", "Hugo", "Cezar", "Adolf"};
+char SegundosNomesMasculinos[10][12] = {" Xavier", " Pereira"," Diniz", " Bittencourt", " Druck", " Reis", " Moura", " Oliveira", " Sampaio", " Lemez"};
+
+char PrimeirosNomesFemininos[10][10] = {"Emanuely", "Sara", "Elisangela", "Rose", "Evelyn", "Sophia", "Beatriz", "Isabela", "Maria", "Giovanna"};
+char SegundosNomesFemininos[10][10] = {" Silva", " Alves", " Santos", " Shimizu", " Abade", " Antunes", " Morgental", " Saboia", " Eduarda", " Mendes"};
+
+    Random = GetRandomValue(0, 100);
+
+    if (Random >= 50)
+    {
+    
+    Sexo = 'M';
+    
+    }
+    else if (Random < 50)
+    {
+
+    Sexo = 'F';
+
+    }
+
+    if(Sexo == 'F')
+    {
+
+    P = GetRandomValue(0, 9);
+    PrimeiroNome = PrimeirosNomesFemininos[P];
+
+    S = GetRandomValue(0, 9);
+    SegundoNome = SegundosNomesFemininos[S];
+
+    }
+
+    else if (Sexo == 'M')
+    {
+
+    P = GetRandomValue(0, 9);
+    PrimeiroNome = PrimeirosNomesMasculinos[P];
+
+    S = GetRandomValue(0, 9);
+    SegundoNome = SegundosNomesMasculinos[S];
+
+    }
+
+    strcpy(Nome, strncat(PrimeiroNome, SegundoNome, 12));
+
+  
+    int NumeroRandom;
+    int NumeroRandom2;
+    int NumeroRandom3;
+
+    bool PesoErrado = false;
+    bool Bombastico = false;
+
+    bool alturaErrada = false;
+
+    NumeroRandom = GetRandomValue(0, 10);
+    NumeroRandom2 = GetRandomValue(0, 10);
+    NumeroRandom3 = GetRandomValue(0, 10);
+
+    if (NumeroRandom3 >= 7){
+        alturaErrada = true;
+
+    }
+
+    if (NumeroRandom >= 7)
+    {
+
+        PesoErrado = true;
+
+    }
+
+    Peso = GetRandomValue(58, 78);
+
+
+    if(PesoErrado == false){
+
+        PesoPassaporte = Peso;
+
+    }
+    else if (PesoErrado == true)
+    {
+
+        PesoPassaporte = Peso + GetRandomValue(4, 10);
+
+        if (NumeroRandom2 >= 5)
+        {
+
+            Bombastico = true;
+
+        }
+    }
+
+
+    
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
 struct pessoas
 {
-    char nome[30];
+    char nome [20];
 
     float peso;
 
@@ -66,7 +167,7 @@ struct pessoas
 
     float alturaPassaporte;
 
-    char sexo[300];
+    char sexo;
 
     int ID;
 
@@ -78,7 +179,7 @@ struct pessoas
 
     struct FotoPessoa FotoPassaporte;
     
-    Texture2D RaioXSprite;
+    Texture2D Raioxsprite;
     
 
 };
@@ -88,6 +189,7 @@ struct pessoas PessoaAtual;
 
 void LoadPessoas(int PessoaCount)
 {
+    LoadInfoRandom();
 
     struct FotoPessoa SpriteM0;
     SpriteM0.Foto = LoadTexture("Textures/cara00.png");
@@ -188,11 +290,11 @@ void LoadPessoas(int PessoaCount)
 
     struct FotoPessoa SpriteF4;
     SpriteF4.Foto = LoadTexture("Textures/mina04.png");
-    SpriteF4.FotoID = 13;
+    SpriteF4.FotoID = 12;
 
     struct FotoPessoa PassaportF4;
     PassaportF4.Foto = LoadTexture("Textures/ftidmina04.png");
-    PassaportF4.FotoID = 13;
+    PassaportF4.FotoID = 12;
 
     struct FotoPessoa SpriteF5;
     SpriteF5.Foto = LoadTexture("Textures/mina05.png");
@@ -219,22 +321,84 @@ void LoadPessoas(int PessoaCount)
     PassaportF7.FotoID = 15;
 
 
-//------------------------------------------------------------------------------------------------------------------------------------
+
+//-----------------INCIALIZAÇÃO DAS STRUCTS POR MEIO DE UMA ARRAY--------------------------------------------------------------------------
+
+struct FotoPessoa HomemSprite[] = {SpriteM0, SpriteM1, SpriteM2, SpriteM3, SpriteM4, SpriteM5, SpriteM6, SpriteM7};
+
+struct FotoPessoa PassaporteHomem[] = {PassaportM0, PassaportM1, PassaportM2, PassaportM3, PassaportM4, PassaportM5, PassaportM6, PassaportM7};
+
+struct FotoPessoa MulherSprite[] = {SpriteF0, SpriteF1, SpriteF2, SpriteF3, SpriteF4, SpriteF5, SpriteF6, SpriteF7};
+
+struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, PassaportF3, PassaportF4, PassaportF5, PassaportF6, PassaportF7};
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+    strcpy(PessoaAtual.nome, Nome);
 
 
-    struct pessoas cara00;
-    strcpy(cara00.nome, "gustavo");
-    cara00.peso = 70;
-    cara00.pesoPassaporte = 70;
+
+    int Sorteio = GetRandomValue(0, 7);
+
+    if (Sorteio < 2) PessoaErrada = true;
+    else PessoaErrada = false;
+
+    struct FotoPessoa PessoaAgrSprite;
+    struct FotoPessoa PessoaAgrPassaporte;
+
+    if (Sexo == 'M' && PessoaErrada == false)
+    {
+
+        PessoaAgrSprite = HomemSprite[Sorteio];
+        PessoaAgrPassaporte = PassaporteHomem[Sorteio];
+
+    }
+    else if (Sexo == 'M' && PessoaErrada == true)
+    {
+
+        PessoaAgrSprite = HomemSprite[Sorteio];
+        PessoaAgrPassaporte = PassaporteHomem[Sorteio + GetRandomValue(1, 3)];
+
+    }
+
+    if (Sexo == 'F' && PessoaErrada == false)
+    {
+
+        PessoaAgrSprite = MulherSprite[Sorteio];
+        PessoaAgrPassaporte = PassaporteMulher[Sorteio];
+
+    }
+    else if (Sexo == 'F' && PessoaErrada == true)
+    {
+
+        PessoaAgrSprite = MulherSprite[Sorteio];
+        PessoaAgrPassaporte = PassaporteMulher[Sorteio + GetRandomValue(1, 3)];
+
+    }
+
+    
+
+
+
+
+
+
+
+
+
+struct pessoas cara00;
+    strcpy(cara00.nome, Nome);
+    cara00.peso = Peso;
+    cara00.pesoPassaporte = PesoPassaporte;
     cara00.altura = 179;
     cara00.alturaPassaporte = 183;
-    strcpy(cara00.sexo, "M");
+    cara00.sexo = Sexo;
     //cara00.vencimento.dia = '33';
     //cara00.vencimento.mes = '11';
     //cara00.vencimento.ano = '83';
-    cara00.Foto = SpriteM0;
-    cara00.FotoPassaporte = PassaportM0;
-    cara00.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara00.Foto = PessoaAgrSprite;
+    cara00.FotoPassaporte = PessoaAgrPassaporte;
+    cara00.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     cara00.ID = 1;
     cara00.bombado = false;
 
@@ -246,13 +410,13 @@ void LoadPessoas(int PessoaCount)
     cara01.pesoPassaporte = 80;
     cara01.altura = 158;
     cara01.alturaPassaporte = 158;
-    strcpy(cara01.sexo, "M");
+    cara01.sexo = Sexo;
     // cara01.vencimento.dia = '10';
     //cara01.vencimento.mes = '05';
     //cara01.vencimento.ano = '79';
     cara01.Foto = SpriteM1;
     cara01.FotoPassaporte = PassaportM1;
-    cara01.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara01.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     cara01.ID = 2;
     cara01.bombado = false;
 
@@ -262,13 +426,13 @@ void LoadPessoas(int PessoaCount)
     cara02.pesoPassaporte = 73;
     cara02.altura = 178;
     cara02.alturaPassaporte = 178;
-    strcpy(cara02.sexo, "M");
+    cara02.sexo = Sexo;
    // cara03.vencimento.dia = '03';
    // cara03.vencimento.mes = '05';
    // cara03.vencimento.ano = '85';
     cara02.Foto = SpriteM2;
     cara02.FotoPassaporte = PassaportM2;
-    cara02.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
+    cara02.Raioxsprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     cara02.ID = 3;
     cara02.bombado = true;
 
@@ -279,13 +443,13 @@ void LoadPessoas(int PessoaCount)
     cara03.pesoPassaporte = 84; 
     cara03.altura = 177;
     cara03.alturaPassaporte = 177;
-    strcpy(cara03.sexo, "M");
+    cara03.sexo = Sexo;
     //cara03.vencimento.dia = '30';
    // cara03.vencimento.mes = '10';
    // cara03.vencimento.ano = '87';
     cara03.Foto = SpriteM3;
     cara03.FotoPassaporte = PassaportM6;
-    cara03.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara03.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     cara03.ID = 3;
     cara03.bombado = false;
 
@@ -295,13 +459,13 @@ void LoadPessoas(int PessoaCount)
     cara04.pesoPassaporte = 87; 
     cara04.altura = 177;
     cara04.alturaPassaporte = 177;
-    strcpy(cara04.sexo, "M");
+    cara04.sexo = Sexo;
     //cara04.vencimento.dia = '30';
    // cara04.vencimento.mes = '10';
    // cara04.vencimento.ano = '87';
     cara04.Foto = SpriteM4;
     cara04.FotoPassaporte = PassaportM4;
-    cara04.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara04.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     cara04.bombado = false;
 
     cara04.ID = 4;
@@ -312,13 +476,13 @@ void LoadPessoas(int PessoaCount)
     cara05.pesoPassaporte = 79; 
     cara05.altura = 173;
     cara05.alturaPassaporte = 173;
-    strcpy(cara05.sexo, "M");
+    cara05.sexo = Sexo;
     //cara05.vencimento.dia = '30';
    // cara05.vencimento.mes = '10';
    // cara05.vencimento.ano = '87';
     cara05.Foto = SpriteM5;
     cara05.FotoPassaporte = PassaportM5;
-    cara05.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara05.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     cara05.ID = 5;
     cara05.bombado = false;
   
@@ -329,13 +493,13 @@ void LoadPessoas(int PessoaCount)
     cara06.pesoPassaporte = 90; 
     cara06.altura = 190;
     cara06.alturaPassaporte = 193;
-    strcpy(cara06.sexo, "M");
+    cara06.sexo = Sexo;
     //cara07.vencimento.dia = '30';
    // cara07.vencimento.mes = '10';
    // cara07.vencimento.ano = '87';
     cara06.Foto = SpriteM6;
     cara06.FotoPassaporte = PassaportM6;
-    cara06.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
+    cara06.Raioxsprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     cara06.ID = 7;
     cara06.bombado = true;
 
@@ -346,13 +510,13 @@ void LoadPessoas(int PessoaCount)
     cara07.pesoPassaporte = 97; 
     cara07.altura = 170;
     cara07.alturaPassaporte = 170;
-    strcpy(cara07.sexo, "M");
+    cara07.sexo = Sexo;
     //cara07.vencimento.dia = '30';
    // cara07.vencimento.mes = '10';
    // cara07.vencimento.ano = '87';
     cara07.Foto = SpriteM7;
     cara07.FotoPassaporte = PassaportM7;
-    cara07.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    cara07.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     cara07.ID = 7;
     cara07.bombado = false;
 
@@ -364,13 +528,13 @@ void LoadPessoas(int PessoaCount)
     mina00.pesoPassaporte = 70;
     mina00.altura = 175;
     mina00.alturaPassaporte = 175;
-    strcpy(mina00.sexo, "F");
+    mina00.sexo = Sexo;
    // mina00.vencimento.dia = '07';
    // mina00.vencimento.mes = '01';
    // mina00.vencimento.ano = '83';
     mina00.Foto = SpriteF0;
     mina00.FotoPassaporte = PassaportF0;
-    mina00.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    mina00.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     mina00.ID = 8;
     mina00.bombado = false;
 
@@ -380,13 +544,13 @@ void LoadPessoas(int PessoaCount)
     mina01.pesoPassaporte = 45;
     mina01.altura = 157;
     mina01.alturaPassaporte = 157;
-    strcpy(mina01.sexo, "F");
+    mina01.sexo = Sexo;
    // mina01.vencimento.dia = '09';
    // mina01.vencimento.mes = '03';
     //mina01.vencimento.ano = '85';
     mina01.Foto = SpriteF1;
     mina01.FotoPassaporte = PassaportF1;
-    mina01.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
+    mina01.Raioxsprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     mina01.ID = 9;
     mina01.bombado = true;
 
@@ -396,13 +560,13 @@ void LoadPessoas(int PessoaCount)
     mina02.pesoPassaporte = 90;
     mina02.altura = 172;
     mina02.alturaPassaporte = 175;
-    strcpy(mina02.sexo, "F");
+    mina02.sexo = Sexo;
    // mina02.vencimento.dia = '08';
     //mina02.vencimento.mes = '02';
    // mina02.vencimento.ano = '87';
     mina02.Foto = SpriteF2;
     mina02.FotoPassaporte = PassaportF2;
-    mina02.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    mina02.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     mina02.ID = 10;
     mina02.bombado = false;
 
@@ -413,13 +577,13 @@ void LoadPessoas(int PessoaCount)
     mina03.pesoPassaporte = 73;
     mina03.altura = 178;
     mina03.alturaPassaporte = 178;
-    strcpy(mina03.sexo, "F");
+    mina03.sexo = Sexo;
   //  mina03.vencimento.dia = '10';
    // mina03.vencimento.mes = '11';
   //  mina03.vencimento.ano = '85';
     mina03.Foto = SpriteF3;
     mina03.FotoPassaporte = PassaportF3;
-    mina03.RaioXSprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
+    mina03.Raioxsprite = LoadTexture("Textures/BodyM1(COMBOMBA).png");
     mina03.ID = 11;
     mina03.bombado = true;
 
@@ -429,13 +593,13 @@ void LoadPessoas(int PessoaCount)
     mina04.pesoPassaporte = 75;
     mina04.altura = 173;
     mina04.alturaPassaporte = 173;
-    strcpy(mina04.sexo, "F");
+    mina04.sexo = Sexo;
    // mina00.vencimento.dia = '07';
    // mina00.vencimento.mes = '01';
    // mina00.vencimento.ano = '83';
     mina04.Foto = SpriteF4;
     mina04.FotoPassaporte = PassaportF4;
-    mina04.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    mina04.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     mina04.ID = 13;
     mina04.bombado = false;
 
@@ -445,13 +609,13 @@ void LoadPessoas(int PessoaCount)
     mina05.pesoPassaporte = 80;
     mina05.altura = 175;
     mina05.alturaPassaporte = 175;
-    strcpy(mina05.sexo, "F");
+    mina05.sexo = Sexo;
    // mina00.vencimento.dia = '07';
    // mina00.vencimento.mes = '01';
    // mina00.vencimento.ano = '83';
     mina05.Foto = SpriteF5;
     mina05.FotoPassaporte = PassaportF5;
-    mina05.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    mina05.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     mina05.ID = 13;
     mina05.bombado = false;
 
@@ -461,13 +625,13 @@ void LoadPessoas(int PessoaCount)
     mina06.pesoPassaporte = 55;
     mina06.altura = 169;
     mina06.alturaPassaporte = 169;
-    strcpy(mina06.sexo, "F");
+    mina06.sexo = Sexo;
    // mina00.vencimento.dia = '06';
    // mina00.vencimento.mes = '01';
    // mina00.vencimento.ano = '83';
     mina06.Foto = SpriteF6;
     mina06.FotoPassaporte = PassaportF3;
-    mina06.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    mina06.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     mina06.ID = 14;
     mina06.bombado = false;
 
@@ -477,13 +641,13 @@ void LoadPessoas(int PessoaCount)
     mina07.pesoPassaporte = 79;
     mina07.altura = 175;
     mina07.alturaPassaporte = 175;
-    strcpy(mina07.sexo, "F");
+    mina07.sexo = Sexo;
    // mina00.vencimento.dia = '07';
    // mina00.vencimento.mes = '01';
    // mina00.vencimento.ano = '83';
     mina07.Foto = SpriteF7;
     mina07.FotoPassaporte = PassaportF7;
-    mina07.RaioXSprite = LoadTexture("Textures/BodyM1.png");
+    mina07.Raioxsprite = LoadTexture("Textures/BodyM1.png");
     mina07.ID = 15;
     mina07.bombado = false;
 
@@ -550,7 +714,7 @@ void LoadPessoas(int PessoaCount)
 
     PessoaSprite = PessoaAtual.Foto.Foto;
     PassaporteSprite = PessoaAtual.FotoPassaporte.Foto;
-    PessoaRaioX = PessoaAtual.RaioXSprite;
+    PessoaRaioX = PessoaAtual.Raioxsprite;
 
 }
 
