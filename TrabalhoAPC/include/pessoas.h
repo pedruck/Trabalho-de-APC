@@ -37,7 +37,13 @@ int Random;
 char Sexo;
 int Peso;
 int PesoPassaporte;
+int alturaPassaporte;
 int P, S;
+bool alturaErrada;
+int dia = 27;
+int mes = 11;
+int ano = 1982;
+
 
 char Nome[20];
 
@@ -53,10 +59,10 @@ void LoadInfoRandom()
 char * PrimeiroNome;
 char * SegundoNome;
 
-char PrimeirosNomesMasculinos[11][10] = {"Erick", "Pedro","Mateus", "Felipe", "Fernando", "Mario", "Rafael", "Lucas", "Hugo", "Cezar", "Adolf"};
+char PrimeirosNomesMasculinos[11][10] = {"Erick", "Pedro","Mateus", "Felipe", "Fernando", "Mario", "Rafael", "Lucas", "Hugo", "Cezar", "Caio"};
 char SegundosNomesMasculinos[10][12] = {" Xavier", " Pereira"," Diniz", " Bittencourt", " Druck", " Reis", " Moura", " Oliveira", " Sampaio", " Lemez"};
 
-char PrimeirosNomesFemininos[10][10] = {"Emanuely", "Sara", "Elisangela", "Rose", "Evelyn", "Sophia", "Beatriz", "Isabela", "Maria", "Giovanna"};
+char PrimeirosNomesFemininos[10][10] = {"Emanuely", "Sara", "Angela", "Rose", "Evelyn", "Sophia", "Beatriz", "Isabela", "Maria", "Giovanna"};
 char SegundosNomesFemininos[10][10] = {" Silva", " Alves", " Santos", " Shimizu", " Abade", " Antunes", " Morgental", " Saboia", " Eduarda", " Mendes"};
 
     Random = GetRandomValue(0, 100);
@@ -102,19 +108,24 @@ char SegundosNomesFemininos[10][10] = {" Silva", " Alves", " Santos", " Shimizu"
     int NumeroRandom;
     int NumeroRandom2;
     int NumeroRandom3;
+    int NumeroRandom4;
+
 
     bool PesoErrado = false;
     bool Bombastico = false;
+    bool Vencido = false;
 
-    bool alturaErrada = false;
+    alturaErrada = false;
 
     NumeroRandom = GetRandomValue(0, 10);
     NumeroRandom2 = GetRandomValue(0, 10);
     NumeroRandom3 = GetRandomValue(0, 10);
+    NumeroRandom4 = GetRandomValue(0, 10);
 
-    if (NumeroRandom3 >= 7){
+    if (NumeroRandom3 >= 0){
+        
         alturaErrada = true;
-
+        
     }
 
     if (NumeroRandom >= 7)
@@ -123,6 +134,7 @@ char SegundosNomesFemininos[10][10] = {" Silva", " Alves", " Santos", " Shimizu"
         PesoErrado = true;
 
     }
+
 
     Peso = GetRandomValue(58, 78);
 
@@ -144,6 +156,25 @@ char SegundosNomesFemininos[10][10] = {" Silva", " Alves", " Santos", " Shimizu"
 
         }
     }
+    
+    if (NumeroRandom4 >= 9)
+    {
+        Vencido = true;
+    }
+    if (Vencido == false)
+    {
+        dia = GetRandomValue(0, 30);
+        mes = GetRandomValue(0, 12);
+        ano++;
+    }
+    if (Vencido == true)
+    {
+        dia = dia - GetRandomValue(1, 25);
+        mes = mes - GetRandomValue(1, 10);
+    }
+    
+    
+    
 
 
     
@@ -194,131 +225,179 @@ void LoadPessoas(int PessoaCount)
     struct FotoPessoa SpriteM0;
     SpriteM0.Foto = LoadTexture("Textures/cara00.png");
     SpriteM0.FotoID = 0;
+    SpriteM0.altura = 171 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM0;
     PassaportM0.Foto = LoadTexture("Textures/ftidcara00.png");
     PassaportM0.FotoID = 0;
+    SpriteM0.altura = 158 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM1;
     SpriteM1.Foto = LoadTexture("Textures/cara01.png");
     SpriteM1.FotoID = 1;
+    SpriteM0.altura = 159 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM1;
     PassaportM1.Foto = LoadTexture("Textures/ftidcara01.png");
     PassaportM1.FotoID = 1;
-
+    SpriteM1.altura = 159  + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM2;
     SpriteM2.Foto = LoadTexture("Textures/cara02.png");
     SpriteM2.FotoID = 2;
+    SpriteM2.altura = 168 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM2;
     PassaportM2.Foto = LoadTexture("Textures/ftidcara02.png");
     PassaportM2.FotoID = 2;
+    SpriteM2.altura = 168 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM3;
     SpriteM3.Foto = LoadTexture("Textures/cara03.png");
     SpriteM3.FotoID = 3;
+    SpriteM3.altura = 167 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM3;
     PassaportM3.Foto = LoadTexture("Textures/ftidcara03.png");
     PassaportM3.FotoID = 3;
+    SpriteM3.altura = 167 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM4;
     SpriteM4.Foto = LoadTexture("Textures/cara04.png");
     SpriteM4.FotoID = 4;
+    SpriteM4.altura = 165 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM4;
     PassaportM4.Foto = LoadTexture("Textures/ftidcara04.png");
     PassaportM4.FotoID = 4;
+    SpriteM4.altura = 165 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM5;
     SpriteM5.Foto = LoadTexture("Textures/cara05.png");
     SpriteM5.FotoID = 5;
+    SpriteM5.altura = 164 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM5;
     PassaportM5.Foto = LoadTexture("Textures/ftidcara05.png");
     PassaportM5.FotoID = 5;
+    SpriteM5.altura = 164 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM6;
     SpriteM6.Foto = LoadTexture("Textures/cara06.png");
     SpriteM6.FotoID = 6;
+    SpriteM6.altura = 169 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM6;
     PassaportM6.Foto = LoadTexture("Textures/ftidcara06.png");
     PassaportM6.FotoID = 6;
+    SpriteM6.altura = 169 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteM7;
     SpriteM7.Foto = LoadTexture("Textures/cara07.png");
     SpriteM7.FotoID = 7;
+    SpriteM7.altura = 170 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportM7;
     PassaportM7.Foto = LoadTexture("Textures/ftidcara07.png");
     PassaportM7.FotoID = 7;
+    SpriteM7.altura = 170 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF0;
     SpriteF0.Foto = LoadTexture("Textures/mina00.png");
     SpriteF0.FotoID = 8;
+    SpriteF0.altura = 166 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF0;
     PassaportF0.Foto = LoadTexture("Textures/ftidmina00.png");
     PassaportF0.FotoID = 8;
+    SpriteF0.altura = 166 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF1;
     SpriteF1.Foto = LoadTexture("Textures/mina01.png");
     SpriteF1.FotoID = 9;
+    SpriteF1.altura = 157 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF1;
     PassaportF1.Foto = LoadTexture("Textures/ftidmina01.png");
     PassaportF1.FotoID = 9;
+    SpriteF1.altura = 157 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF2;
     SpriteF2.Foto = LoadTexture("Textures/mina02.png");
     SpriteF2.FotoID = 10;
+    SpriteF2.altura = 168 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF2;
     PassaportF2.Foto = LoadTexture("Textures/ftidmina02.png");
     PassaportF2.FotoID = 10;
+    SpriteF2.altura = 168 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF3;
     SpriteF3.Foto = LoadTexture("Textures/mina03.png");
     SpriteF3.FotoID = 11;
+    SpriteF3.altura = 163 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF3;
     PassaportF3.Foto = LoadTexture("Textures/ftidmina03.png");
     PassaportF3.FotoID = 11;
+    SpriteF3.altura = 163 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF4;
     SpriteF4.Foto = LoadTexture("Textures/mina04.png");
     SpriteF4.FotoID = 12;
+    SpriteF4.altura = 164 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF4;
     PassaportF4.Foto = LoadTexture("Textures/ftidmina04.png");
     PassaportF4.FotoID = 12;
+    SpriteF4.altura = 164 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF5;
     SpriteF5.Foto = LoadTexture("Textures/mina05.png");
     SpriteF5.FotoID = 13;
+    SpriteF5.altura = 165 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF5;
     PassaportF5.Foto = LoadTexture("Textures/ftidmina05.png");
     PassaportF5.FotoID = 13;
+    SpriteF5.altura = 165 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF6;
     SpriteF6.Foto = LoadTexture("Textures/mina06.png");
     SpriteF6.FotoID = 14;
+    SpriteF6.altura = 163 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF6;
     PassaportF6.Foto = LoadTexture("Textures/ftidmina06.png");
     PassaportF6.FotoID = 14;
+    SpriteF6.altura = 163 + GetRandomValue(-1, 1);
 
     struct FotoPessoa SpriteF7;
     SpriteF7.Foto = LoadTexture("Textures/mina07.png");
     SpriteF7.FotoID = 15;
+    SpriteF7.altura = 168 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF7;
     PassaportF7.Foto = LoadTexture("Textures/ftidmina07.png");
     PassaportF7.FotoID = 15;
+    SpriteF7.altura = 168 + GetRandomValue(-1, 1);
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -345,6 +424,8 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 
     struct FotoPessoa PessoaAgrSprite;
     struct FotoPessoa PessoaAgrPassaporte;
+
+
 
     if (Sexo == 'M' && PessoaErrada == false)
     {
@@ -385,13 +466,30 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 
 
 
-
 struct pessoas cara00;
     strcpy(cara00.nome, Nome);
     cara00.peso = Peso;
     cara00.pesoPassaporte = PesoPassaporte;
-    cara00.altura = 179;
-    cara00.alturaPassaporte = 183;
+    cara00.altura = PessoaAgrSprite.altura;
+
+    if(alturaErrada == true)
+    {
+   // if(GetRandomValue(0, 10) > 5) alturaPassaporte += GetRandomValue(50, 60);
+    
+   // else
+    
+    cara00.alturaPassaporte = PessoaAgrPassaporte.altura - GetRandomValue(50, 60);
+    
+    }
+
+    else 
+    {
+
+    cara00.alturaPassaporte = PessoaAgrPassaporte.altura;
+
+    }
+
+
     cara00.sexo = Sexo;
     //cara00.vencimento.dia = '33';
     //cara00.vencimento.mes = '11';
@@ -723,7 +821,9 @@ bool AlturaCheck()
 
     bool saida = false;
 
-    if (PessoaAtual.altura == PessoaAtual.alturaPassaporte)
+    int diferenca = PessoaAtual.altura - PessoaAtual.alturaPassaporte;
+
+    if (diferenca > -2 && diferenca < 2)
     {
 
         saida = true;
@@ -749,6 +849,14 @@ bool PesoCheck()
     return saida;
 
 }
+
+/*bool VencimentoCheck()
+{
+    
+
+
+
+}*/
 
 bool ImagemCheck()
 {

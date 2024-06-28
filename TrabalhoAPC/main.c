@@ -266,7 +266,7 @@ if (IsKeyPressed(KEY_SPACE))
     else if (pontuacao < 70 && pontuacao >= 40)
     {
 
-        estadoemprego = "Preucupante";    
+        estadoemprego = "Preocupante";    
 
     }
     else if (pontuacao < 40 && pontuacao >= 15)
@@ -624,6 +624,7 @@ void UpdateDrawFrame(void)
         DrawTextoSimples(TextFormat("%4.fkg", PessoaAtual.pesoPassaporte), passaporte.x + 240, passaporte.y + 465, 20, BLACK);
         DrawTextoSimples(TextFormat("%c",PessoaAtual.sexo), passaporte.x + 260, passaporte.y + 400, 20, BLACK);
         DrawTextoSimples(PessoaAtual.nome, passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
+        DrawTextoSimples(TextFormat("%d/%d/%d",  dia, mes, ano), passaporte.x + 260, passaporte.y + 433, 20, BLACK);
         
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
         DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1.7, WHITE);    
@@ -637,7 +638,7 @@ void UpdateDrawFrame(void)
 
 
         DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
-        DrawTextoSimples("DATA: 21/02/1982", 0, 0, 20, WHITE ); 
+        DrawTextoSimples("DATA: 27/11/1982", 0, 0, 20, WHITE ); 
         //DrawText("DATA: ", 0, 0, 20, LIGHTGRAY);
         
         DrawTextoSimples("Estado do emprego:", 0, 40, 20, WHITE );    //pedro druck mama rola
