@@ -1,6 +1,10 @@
 #include "raylib.h"
 
 
+
+#ifndef LIBBASICA
+#define LIBBASICA
+
 typedef struct Vetor2D {
     float x;                
     float y;                
@@ -91,3 +95,5 @@ void DrawTextoSimples(const char *text, int posX, int posY, int fontSize, Color 
         DrawTextoPro(GetFontDefault(), text, position, (float)fontSize, (float)spacing, color);
     }
 }
+
+#endif 

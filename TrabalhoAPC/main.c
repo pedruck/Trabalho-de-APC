@@ -6,6 +6,7 @@
 #include "stdlib.h"
 
 
+
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
@@ -25,10 +26,13 @@ bool passaporteAberto;
 bool drag;
 bool ScanSemNecessidade;
 
+bool regrasIconeAberto;
 bool raioxIconeAberto;
 bool ScanFeito;
 
 bool pause;
+
+bool TransicaoPessoa;
 
 
 
@@ -36,6 +40,7 @@ Vetor2D LocalizacaoMouse;
 Texture2D IconePassaporte;
 Texture2D IconeRaioX;
 Texture2D raioxtext;
+Texture2D regrastext;
 Texture2D bg1;
 Texture2D division;
 Texture2D bg1bar;
@@ -43,6 +48,8 @@ Texture2D passaporteText;
 Texture2D CrosshairText;
 Texture2D passaporteIcone;
 Texture2D raioxIcone;
+Texture2D regrasIcone;
+
 char * peso;
 char * pesoPassaporte;
 
@@ -50,7 +57,12 @@ int comissao;
 
 bool ScanFeito;
 
+int AnimFrameCounter;
 
+int AnimFrameCounter2;
+
+Vetor2D JanelaPosicao;
+Texture2D Janela;
     
 
 Vector2 NomeLocation;
@@ -62,7 +74,9 @@ Vector2 PessoaPosition;
 Retangulo passaporte;
 Retangulo passaporteIconeRec;
 
+Retangulo regras;
 Retangulo raiox;
+Retangulo regrasIconeRec;
 Retangulo raioxIconeRec;
 Font font;
 
@@ -70,12 +84,16 @@ Retangulo deter;
 Retangulo aprovar;
 Retangulo rejeitar;
 Retangulo scan;
+Sound ProximaPessoaSound;
 
 bool AvalicaoFoiFeita;
 
 void ProximaPessoa()
 {
+    
+            
             framesCounter = 0;
+            
             Count++;
             LoadPessoas(Count);
             LoadDialogo(Count);
@@ -85,6 +103,7 @@ void ProximaPessoa()
             
             passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
             raioxIcone = LoadTexture("Textures/raioxicone0.png");
+            regrasIcone = LoadTexture("Textures/regrasIconeOk.png");
 
             ScanFeito = false;
             ScanSemNecessidade = false;
@@ -105,15 +124,13 @@ void UpdateFrames(void)
 
         passaporteText = LoadTexture("Textures/passport-blank.png");
         raioxtext = LoadTexture("Textures/BodyM1.png");
+        //regrastext = LoadTexture("")
+
+        
+
     }
 
-
-   
-
 }
-
-
-
 
 
 
@@ -123,7 +140,8 @@ void UpdateDrawFrame(void);     // Update
 int WinMain(void)
 {
     Count = 0;
-   
+    JanelaPosicao.x = 0;
+    JanelaPosicao.y = -625;
 
     pontuacao = 110;
     
@@ -142,15 +160,20 @@ int WinMain(void)
     passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
     passaporteAberto = false;
     drag = false;
+    regrasIcone = LoadTexture("Textures/regrasIcone.png");
     raioxIcone = LoadTexture("Textures/raioxicone0.png");
+    regrasIconeAberto = false;
     raioxIconeAberto = false;
     drag = false;
     ScanFeito = false;
     ScanSemNecessidade = false;
     Music music = LoadMusicStream("Textures/Vento.mp3");
+    ProximaPessoaSound = LoadSound("Textures/proximapessoa.mp3");
+    Janela = LoadTexture("Textures/next_scaled.png");
+    TransicaoPessoa = false;
 
 PlayMusicStream(music);
-float timePlayed = 0.0f; 
+
 
     framesCounter = 0;
        
@@ -187,6 +210,19 @@ float timePlayed = 0.0f;
     raioxIconeRec.y = 220;
     raioxIconeRec.largura = raioxIcone.width;
     raioxIconeRec.altura = raioxIcone.height;
+
+    regras.x = 700;
+    regras.y = 200;
+
+    regras.largura = regrastext.width;
+    regras.altura = regrastext.height;
+    regrasIconeRec.largura = regrasIcone.width;
+    regrasIconeRec.altura = regrasIcone.height;
+
+    
+
+
+
 
     deter.x = 200;
     deter.y = 652;
@@ -233,21 +269,38 @@ float timePlayed = 0.0f;
         
         UpdateDrawFrame();
         UpdateMusicStream(music);
-        framesCounter++;
-if (IsKeyPressed(KEY_SPACE))
-        {
-            StopMusicStream(music);
-            PlayMusicStream(music);
-        }
-        if (IsKeyPressed(KEY_P))
-        {
-            pause = !pause;
 
-            if (pause) PauseMusicStream(music);
-            else ResumeMusicStream(music);
+
+        // Logica das Animações------------------------------------------------------------
+        framesCounter++;
+        if (AnimFrameCounter > 121) AnimFrameCounter = 0;
+        else AnimFrameCounter++;
+
+        if (AnimFrameCounter == 60) PessoaPosition.y += 5;
+        else if (AnimFrameCounter == 120) PessoaPosition.y -= 5;
+
+        if(AnimFrameCounter2 > 250 && TransicaoPessoa == true)
+        {
+
+            AnimFrameCounter2 = 0;
+            TransicaoPessoa = false;
+
+        } 
+        else if (TransicaoPessoa == true)
+        {
+        AnimFrameCounter2++;
+
         }
-        timePlayed = GetMusicTimePlayed(music)/GetMusicTimeLength(music);
-        if (timePlayed > 1.0f) timePlayed = 1.0f;
+
+        if (TransicaoPessoa == true && AnimFrameCounter2 < 120 && JanelaPosicao.y < -10 ) JanelaPosicao.y += 14; 
+
+        if (AnimFrameCounter2 == 120) ProximaPessoa();
+
+        if (TransicaoPessoa == true && AnimFrameCounter2 > 140 && JanelaPosicao.y > -625 ) JanelaPosicao.y -= 14; 
+
+        //printf("%d\n", AnimFrameCounter2);
+        
+        //-----------------------------------------------------------------------------------
 
 
 
@@ -315,6 +368,11 @@ void UpdateDrawFrame(void)
 
     NomeLocation.x = passaporte.x + 30;
     NomeLocation.y = passaporte.y + 340;
+
+
+    
+
+
 
     
 
@@ -436,6 +494,20 @@ void UpdateDrawFrame(void)
 
     }
 
+    if (ScanFeito == true){
+            regrasIconeRec.x = 550;
+            regrasIconeRec.y = 330;
+
+    }
+
+    else if(ScanFeito == true){
+            regrasIconeRec.x  = -1000;
+            regrasIconeRec.y = -1000;
+
+
+    }
+
+
 
 
    
@@ -524,6 +596,58 @@ void UpdateDrawFrame(void)
         
 
             }
+        
+
+        //logica das rgras 
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //fim do raiox
 
@@ -541,8 +665,12 @@ void UpdateDrawFrame(void)
 
         if (ScanSemNecessidade == true) pontuacao -= 10;
 
-
-        ProximaPessoa();
+        PlaySound(ProximaPessoaSound);
+        TransicaoPessoa = true;
+      
+       
+        
+        
 
 
     }
@@ -553,8 +681,9 @@ void UpdateDrawFrame(void)
         if (PessoaValida() == true) pontuacao -= 15;
         
         if (ScanSemNecessidade == true) pontuacao -= 10;
-
-        ProximaPessoa();
+        PlaySound(ProximaPessoaSound);
+        TransicaoPessoa = true;
+        
 
 
     }
@@ -576,8 +705,10 @@ void UpdateDrawFrame(void)
     {
 
         if (PessoaBombada() == false) pontuacao -= 30;
-    
-        ProximaPessoa();
+        PlaySound(ProximaPessoaSound);
+        TransicaoPessoa = true;
+        
+        
 
 
     }   
@@ -620,11 +751,11 @@ void UpdateDrawFrame(void)
 
        // DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
        
-        DrawText(TextFormat("%4.f cm", PessoaAtual.altura), passaporte.x + 250, passaporte.y + 375, 20, BLACK);
+        DrawText(TextFormat("%d cm", PessoaAtual.alturaPassaporte), passaporte.x + 250, passaporte.y + 375, 20, BLACK);
         DrawTextoSimples(TextFormat("%4.fkg", PessoaAtual.pesoPassaporte), passaporte.x + 240, passaporte.y + 465, 20, BLACK);
         DrawTextoSimples(TextFormat("%c",PessoaAtual.sexo), passaporte.x + 260, passaporte.y + 400, 20, BLACK);
         DrawTextoSimples(PessoaAtual.nome, passaporte.x + 30, passaporte.y + 340 , 20, BLACK);
-        DrawTextoSimples(TextFormat("%d/%d/%d",  dia, mes, ano), passaporte.x + 260, passaporte.y + 433, 20, BLACK);
+        DrawTextoSimples(TextFormat("%d/%d/%d", vencimento.dia, vencimento.mes, vencimento.ano), passaporte.x + 260, passaporte.y + 433, 20, BLACK);
         
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
         DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1.7, WHITE);    
@@ -637,12 +768,14 @@ void UpdateDrawFrame(void)
       //  DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
 
 
-        DrawTextoSimples(TextSubtext(MensagemInicial, 0, framesCounter/1.2), 50, 550, 21, WHITE);
+        DrawTextoSimples(TextSubtext(Mensagem, 0, framesCounter/1.2), 50, 550, 21, WHITE);
         DrawTextoSimples("DATA: 27/11/1982", 0, 0, 20, WHITE ); 
         //DrawText("DATA: ", 0, 0, 20, LIGHTGRAY);
         
-        DrawTextoSimples("Estado do emprego:", 0, 40, 20, WHITE );    //pedro druck mama rola
-        DrawTextoSimples(estadoemprego, 200, 44, 20, WHITE);
+        DrawTextoSimples("Estado do emprego:", 0, 20, 20, WHITE );    //pedro druck mama rola
+        DrawTextoSimples(estadoemprego, 210, 20, 20, WHITE);
+
+        DrawTexture(Janela, JanelaPosicao.x, JanelaPosicao.y, WHITE);
 
 
       

@@ -1,43 +1,29 @@
 #include "raylib.h"
 
-char * MensagemInicial;
+char Mensagem[100];
 
 void LoadDialogo (int PessoaCount)
 {
 
 
+char MensagemRandom[8][100] = {"Fila tava muito longa meu deus.\nSe tu n me aprovar agr eu vo ficar bem chateado!",
+                                "Só quero voltar pra casa logo.\nFiquei horas nessa fila gigante...",
+                                "Fiquei 5 horas esperando, faça valer a pena",
+                                "Não vejo minha filha a 5 anos! Hoje é o grande dia...",
+                                "Não demore muito. Se eu me atrasar o meu chefe\n me mata!",
+                                "Não deixe o cara que está depois de mim passar...\nele é perigoso",
+                                "Seja rapido por favor, tenho compromissos...",
+                                "Estou o dia inteiro na fila, não me faça\nvoltar pra casa..."};
 
- switch (PessoaCount)
-    {
 
-    case 0:
-        MensagemInicial = "Fila tava muito longa meu deus.\nSe tu n me aprovar agr eu vo ficar bem chateado!";
-        break;
-    case 1:
-        MensagemInicial = "Alguém soltou um peidão na fila, quase morri.\nEu acho q foi aquele tal de Erick la";
-        break;
-    case 2:
-        MensagemInicial = "Fiquei 5 horas esperando, faça valer a pena";
-        break;
-    case 3:
-        MensagemInicial = "Não vejo minha filha a 5 anos! Hoje é o grande dia...";       
-        break;
-    case 4:
-        MensagemInicial = "Ontem a noite 4 negros acabaram com meu buraco... foi doloroso"; 
-        break;
-    case 5:
-        MensagemInicial = "Não deixe o cara que está antes de mim passar...\nele é perigoso";        
-        break;
-    case 6:
-        MensagemInicial = "Seja rapido por favor, tenho compromissos...";              
-        break;
-    case 7:
-        MensagemInicial = "Estou o dia inteiro na fila, não me faça\nvoltar pra casa...";         
-        break;
 
-    }
+int Randomizador = GetRandomValue(0, 7);
+
+strcpy(Mensagem, MensagemRandom[Randomizador]);
+
+
+}
 
     
 
 
-}
