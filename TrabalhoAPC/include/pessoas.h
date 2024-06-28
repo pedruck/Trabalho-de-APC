@@ -25,10 +25,11 @@ struct FotoPessoa
 {
 
     Texture2D Foto;
-    
+
 
     int FotoID;
     int altura;
+    bool Procurado;
     
 
     
@@ -52,9 +53,74 @@ char Nome[20];
 bool PessoaErrada;
 bool Vencido;
 bool Bombastico;
+bool Procurado;
+
+
+struct FotoPessoa Procurado1;
+struct FotoPessoa Procurado1Passaporte;
+struct FotoPessoa Procurado2;
+struct FotoPessoa Procurado2Passaporte;
+
 
 
 //AQUI TIAGO PORRAAAAAAAA
+void LoadProcurados()
+{
+
+struct FotoPessoa ProcuradoSpriteM0;
+
+    ProcuradoSpriteM0.Foto = LoadTexture("Textures/suspeitoM0.png");
+    ProcuradoSpriteM0.altura = 168 + GetRandomValue(-1, 1);
+    
+struct FotoPessoa ProcuradoPassaportM0;
+
+    ProcuradoPassaportM0.Foto = LoadTexture("Textures/SuspeitoF0.png");
+    ProcuradoPassaportM0.altura = 168 + GetRandomValue(-1, 1);
+
+struct FotoPessoa ProcuradoSpriteM1;
+
+    ProcuradoSpriteM1.Foto = LoadTexture("Textures/suspeitoM1.png");
+    ProcuradoSpriteM1.altura = 162 + GetRandomValue(-1, 1);
+    
+struct FotoPessoa ProcuradoPassaportM1;
+
+    ProcuradoPassaportM1.Foto = LoadTexture("Textures/SuspeitoF1.png");
+    ProcuradoPassaportM1.altura = 162 + GetRandomValue(-1, 1);
+
+struct FotoPessoa ProcuradoSpriteM2;
+
+    ProcuradoSpriteM2.Foto = LoadTexture("Textures/suspeitoM2.png");
+    ProcuradoSpriteM2.altura = 166 + GetRandomValue(-1, 1);
+    
+struct FotoPessoa ProcuradoPassaportM2;
+
+    ProcuradoPassaportM2.Foto = LoadTexture("Textures/SuspeitoF2.png");
+    ProcuradoPassaportM2.altura = 166 + GetRandomValue(-1, 1);
+
+struct FotoPessoa ProcuradoSpriteM3;
+
+    ProcuradoSpriteM3.Foto = LoadTexture("Textures/suspeitoM3.png");
+    ProcuradoSpriteM3.altura = 165 + GetRandomValue(-1, 1);
+    
+struct FotoPessoa ProcuradoPassaportM3;
+
+    ProcuradoPassaportM3.Foto = LoadTexture("Textures/SuspeitoF3.png");
+    ProcuradoPassaportM3.altura = 165 + GetRandomValue(-1, 1);
+
+struct FotoPessoa ProcuradosHomem[] = {ProcuradoSpriteM0, ProcuradoSpriteM1, ProcuradoSpriteM2, ProcuradoSpriteM3};
+struct FotoPessoa ProcuradosHomemPassaporte[] = {ProcuradoPassaportM0, ProcuradoPassaportM1, ProcuradoPassaportM2, ProcuradoPassaportM3};
+
+int random = GetRandomValue(0,1);
+int random2 = GetRandomValue(2,3);
+
+Procurado1 = ProcuradosHomem[random];
+Procurado1Passaporte = ProcuradosHomemPassaporte[random];
+
+Procurado2 = ProcuradosHomem[random2];
+Procurado2Passaporte = ProcuradosHomemPassaporte[random2];
+
+}
+
 
 void LoadInfoRandom()
 {
@@ -114,7 +180,9 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
     int NumeroRandom2;
     int NumeroRandom3;
     int NumeroRandom4;
+    int NumeroRandom5;
 
+    Procurado = false;
     bool PesoErrado = false;
     Bombastico = false;
     Vencido = false;
@@ -126,14 +194,22 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
     NumeroRandom2 = GetRandomValue(0, 10);
     NumeroRandom3 = GetRandomValue(0, 10);
     NumeroRandom4 = GetRandomValue(0, 10);
+    NumeroRandom5 = GetRandomValue(0, 10);
 
-    if (NumeroRandom3 >= 9){
+
+    if (NumeroRandom5 >= 7 && Sexo == 'M'){
+        
+        Procurado = true;
+        
+    }
+
+    if (NumeroRandom3 >= 9 && Procurado == false){
         
         alturaErrada = true;
         
     }
 
-    if (NumeroRandom >= 8)
+    if (NumeroRandom >= 8 && Procurado == false)
     {
 
         PesoErrado = true;
@@ -144,7 +220,7 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
     Peso = GetRandomValue(58, 78);
 
 
-    if(PesoErrado == false){
+    if(PesoErrado == false ){
 
         PesoPassaporte = Peso;
 
@@ -162,7 +238,7 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
         }
     }
     
-    if (NumeroRandom4 >= 9)
+    if (NumeroRandom4 >= 9 && Procurado == false)
     {
         Vencido = true;
         vencimento.dia = 27 - GetRandomValue(1, 26);
@@ -209,6 +285,7 @@ struct pessoas
     struct FotoPessoa Foto;
 
     struct FotoPessoa FotoPassaporte;
+
     
     Texture2D Raioxsprite;
     
@@ -216,6 +293,23 @@ struct pessoas
 };
 
 struct pessoas PessoaAtual;
+
+struct FotoPessoa Procurado1;
+struct FotoPessoa Procurado1Passaporte;
+struct FotoPessoa Procurado2;
+struct FotoPessoa Procurado2Passaporte;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void LoadPessoas(int PessoaCount)
@@ -383,9 +477,9 @@ void LoadPessoas(int PessoaCount)
   //  SpriteF7.altura = 168 + GetRandomValue(-1, 1);
 
 
+   
     
-
-
+    
 
 
 
@@ -403,6 +497,8 @@ void LoadPessoas(int PessoaCount)
 
 //-----------------INCIALIZAÇÃO DAS STRUCTS POR MEIO DE UMA ARRAY--------------------------------------------------------------------------
 
+
+
 struct FotoPessoa HomemSprite[] = {SpriteM0, SpriteM1, SpriteM2, SpriteM3, SpriteM4, SpriteM5, SpriteM6, SpriteM7};
 
 struct FotoPessoa PassaporteHomem[] = {PassaportM0, PassaportM1, PassaportM2, PassaportM3, PassaportM4, PassaportM5, PassaportM6, PassaportM7};
@@ -417,6 +513,9 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 
 
 
+
+
+
     int Sorteio = GetRandomValue(0, 7);
 
     if (Sorteio < 2) PessoaErrada = true;
@@ -427,14 +526,14 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 
 
 
-    if (Sexo == 'M' && PessoaErrada == false)
+    if (Sexo == 'M' && PessoaErrada == false && Procurado == false)
     {
 
         PessoaAgrSprite = HomemSprite[Sorteio];
         PessoaAgrPassaporte = PassaporteHomem[Sorteio];
 
     }
-    else if (Sexo == 'M' && PessoaErrada == true)
+    else if (Sexo == 'M' && PessoaErrada == true && Procurado == false)
     {
 
         PessoaAgrSprite = HomemSprite[Sorteio];
@@ -442,18 +541,33 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 
     }
 
-    if (Sexo == 'F' && PessoaErrada == false)
+    if (Sexo == 'F' && PessoaErrada == false && Procurado == false)
     {
 
         PessoaAgrSprite = MulherSprite[Sorteio];
         PessoaAgrPassaporte = PassaporteMulher[Sorteio];
 
     }
-    else if (Sexo == 'F' && PessoaErrada == true)
+    else if (Sexo == 'F' && PessoaErrada == true && Procurado == false)
     {
 
         PessoaAgrSprite = MulherSprite[Sorteio];
         PessoaAgrPassaporte = PassaporteMulher[Sorteio + GetRandomValue(1, 3)];
+
+    }
+
+    if (Procurado == true && GetRandomValue(0,1) == 0)
+    {
+
+        PessoaAgrSprite = Procurado1;
+        PessoaAgrPassaporte = Procurado1Passaporte;
+
+    }
+    else if (Procurado == true && GetRandomValue(0,1) == 1)
+    {
+
+        PessoaAgrSprite = Procurado2;
+        PessoaAgrPassaporte = Procurado2Passaporte;
 
     }
 

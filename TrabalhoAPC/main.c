@@ -31,12 +31,16 @@ bool raioxIconeAberto;
 bool ScanFeito;
 
 bool pause;
+bool Tutorial;
 
 bool TransicaoPessoa;
+
+bool foidemitido = false;
 
 
 
 Vetor2D LocalizacaoMouse;
+Texture2D DemitidoT;
 Texture2D IconePassaporte;
 Texture2D IconeRaioX;
 Texture2D raioxtext;
@@ -49,6 +53,7 @@ Texture2D CrosshairText;
 Texture2D passaporteIcone;
 Texture2D raioxIcone;
 Texture2D regrasIcone;
+Texture2D Regras;
 
 char * peso;
 char * pesoPassaporte;
@@ -64,8 +69,11 @@ int AnimFrameCounter2;
 Vetor2D JanelaPosicao;
 Texture2D Janela;
     
+Vector2 Demitido; 
 
 Vector2 NomeLocation;
+
+Vetor2D RegrasLocation;
 
 Vetor2D Crosshair;
 
@@ -73,6 +81,8 @@ Vector2 PessoaPosition;
 
 Retangulo passaporte;
 Retangulo passaporteIconeRec;
+
+
 
 Retangulo regras;
 Retangulo raiox;
@@ -85,6 +95,9 @@ Retangulo aprovar;
 Retangulo rejeitar;
 Retangulo scan;
 Sound ProximaPessoaSound;
+Sound Foto;
+Texture2D Procurados;
+Vetor2D ProcuradosLocation;
 
 bool AvalicaoFoiFeita;
 
@@ -139,6 +152,10 @@ void UpdateDrawFrame(void);     // Update
 
 int WinMain(void)
 {
+    
+    
+    RegrasLocation.x = -1000;
+    RegrasLocation.y = -1000;
     Count = 0;
     JanelaPosicao.x = 0;
     JanelaPosicao.y = -625;
@@ -148,9 +165,9 @@ int WinMain(void)
     // Inicializacao
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-
+    LoadProcurados();
     
-     InitAudioDevice();
+    InitAudioDevice();
 
     bg1 = LoadTexture("Textures/p-p-bg1_scaled.png");
     division = LoadTexture("Textures/p-p-division_scaled.png");
@@ -169,10 +186,17 @@ int WinMain(void)
     ScanSemNecessidade = false;
     Music music = LoadMusicStream("Textures/Vento.mp3");
     ProximaPessoaSound = LoadSound("Textures/proximapessoa.mp3");
+    
     Janela = LoadTexture("Textures/next_scaled.png");
+    Regras = LoadTexture("Textures/RulesInnerWorkPermit.png");
+    Procurados = LoadTexture("Textures/procurados.png");
+    DemitidoT = LoadTexture("Textures/demissao.png");
+    
+   
+    
     TransicaoPessoa = false;
 
-PlayMusicStream(music);
+    PlayMusicStream(music);
 
 
     framesCounter = 0;
@@ -219,7 +243,11 @@ PlayMusicStream(music);
     regrasIconeRec.largura = regrasIcone.width;
     regrasIconeRec.altura = regrasIcone.height;
 
-    
+    ProcuradosLocation.x = 800;
+    ProcuradosLocation.y = 100;
+
+    Demitido.x = 0;
+    Demitido.y = 0;
 
 
 
@@ -270,9 +298,43 @@ PlayMusicStream(music);
         UpdateDrawFrame();
         UpdateMusicStream(music);
 
+        Tutorial = false;
+
+        if (IsKeyDown(KEY_F) && Tutorial == false)
+        {
+            
+            Tutorial = true;
+
+        }
+        else if (IsKeyDown(KEY_F) && Tutorial == true)
+        {
+
+            Tutorial = false;
+
+        }
+
+        if (Tutorial == true)
+        {
+
+            RegrasLocation.x = 650;
+            RegrasLocation.y = 0;
+
+            
+
+        }
+        else
+        {
+
+
+            RegrasLocation.x = -1000;
+            RegrasLocation.y = -1000;
+
+
+        }
 
         // Logica das Animações------------------------------------------------------------
         framesCounter++;
+        
         if (AnimFrameCounter > 121) AnimFrameCounter = 0;
         else AnimFrameCounter++;
 
@@ -332,11 +394,11 @@ PlayMusicStream(music);
     {
 
         estadoemprego = "Demitido";
+        foidemitido = true;
+
+        
 
     }
-
-
-    
 
     }
      
@@ -473,6 +535,17 @@ void UpdateDrawFrame(void)
 
     }    
 
+
+
+
+
+
+
+
+
+
+
+
     // fim da logica do passaporte
 
 //------------------------- ---------------------------------------------------------------//
@@ -607,48 +680,6 @@ void UpdateDrawFrame(void)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //fim do raiox
 
     }
@@ -722,7 +753,21 @@ void UpdateDrawFrame(void)
 
     //-------------------------------------------------------------------------------------------------
 
+    if (foidemitido == true) 
+    {
 
+        Demitido.x = 0;
+        Demitido.y = 0;
+
+    }
+    else 
+    {
+
+        Demitido.x = -1000;
+        Demitido.y = 1000;
+
+        
+    }
     
 
 
@@ -741,6 +786,7 @@ void UpdateDrawFrame(void)
         DrawTexture(bg1, 0, 0, WHITE);
         DrawTextoSimples(TextFormat("%4.f kg", PessoaAtual.peso), 500, 230, 21, BLACK);
         DrawTextureEx(PessoaSprite, PessoaPosition, 0.0, 1.18, WHITE);
+
  
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
@@ -748,6 +794,13 @@ void UpdateDrawFrame(void)
         DrawTextureEx(passaporteIcone, (Vector2){660, 40}, 0.0, 0.7, WHITE);
         
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
+        
+
+        DrawTextureEx(Procurados, (Vector2){ProcuradosLocation.x, ProcuradosLocation.y}, 0.0, 0.8, WHITE);
+        DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){ProcuradosLocation.x + 41, ProcuradosLocation.y + 136}, 0.0, 0.14, WHITE);
+        DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 41, ProcuradosLocation.y + 255}, 0.0, 0.14, WHITE);
+
+        
 
        // DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
        
@@ -758,13 +811,13 @@ void UpdateDrawFrame(void)
         DrawTextoSimples(TextFormat("%d/%d/%d", vencimento.dia, vencimento.mes, vencimento.ano), passaporte.x + 260, passaporte.y + 433, 20, BLACK);
         
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
-        DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1.7, WHITE);    
+        DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1.7, WHITE);   
         //DrawRectangle(passaporteIconeRec.x, passaporteIconeRec.y, passaporteIconeRec.largura,passaporteIconeRec.altura ,RED);
 
 
       //  DrawRectangle(aprovar.x, aprovar.y, aprovar.largura, aprovar.altura, RED);
-     //   DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
-     //   DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
+      //  DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
+      //  DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
       //  DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
 
 
@@ -777,6 +830,18 @@ void UpdateDrawFrame(void)
 
         DrawTexture(Janela, JanelaPosicao.x, JanelaPosicao.y, WHITE);
 
+        DrawTexture(Regras, RegrasLocation.x, RegrasLocation.y, WHITE);
+        
+       
+
+        DrawText("Segure 'F' para visualizar as regras", 1285, 695, 20, DARKGRAY);
+
+
+        
+
+         DrawTextureEx(DemitidoT, (Vector2) {Demitido.x, Demitido.y}, 0.0, 0.8, WHITE);
+
+        
 
       
     EndDrawing();
