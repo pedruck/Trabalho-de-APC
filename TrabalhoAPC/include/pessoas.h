@@ -1,7 +1,7 @@
-#include <raylib.h>
+
 #include <stdio.h>
 #include <string.h>
-
+#include "raylib.h"
 
 
 
@@ -119,6 +119,8 @@ Procurado1Passaporte = ProcuradosHomemPassaporte[random];
 Procurado2 = ProcuradosHomem[random2];
 Procurado2Passaporte = ProcuradosHomemPassaporte[random2];
 
+printf("RANDOM1: %d\n", random);
+printf("RANDOM2: %d\n", random2);
 }
 
 
@@ -197,7 +199,7 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
     NumeroRandom5 = GetRandomValue(0, 10);
 
 
-    if (NumeroRandom5 >= 7 && Sexo == 'M'){
+    if (NumeroRandom5 >= 0 && Sexo == 'M'){
         
         Procurado = true;
         
@@ -300,7 +302,7 @@ struct FotoPessoa Procurado2;
 struct FotoPessoa Procurado2Passaporte;
 
 
-
+int RandomProcurado;
 
 
 
@@ -556,14 +558,16 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 
     }
 
-    if (Procurado == true && GetRandomValue(0,1) == 0)
+    RandomProcurado = GetRandomValue(0,1);
+
+    if (Procurado == true && RandomProcurado == 0)
     {
 
         PessoaAgrSprite = Procurado1;
         PessoaAgrPassaporte = Procurado1Passaporte;
 
     }
-    else if (Procurado == true && GetRandomValue(0,1) == 1)
+    else if (Procurado == true && RandomProcurado == 1)
     {
 
         PessoaAgrSprite = Procurado2;
@@ -694,7 +698,7 @@ bool PessoaValida(void)
 
     bool saida = false;
 
-    if(ImagemCheck() == true && PessoaBombada() == false && AlturaCheck() == true && VencimentoCheck() == true)
+    if(ImagemCheck() == true && PessoaBombada() == false && AlturaCheck() == true && VencimentoCheck() == true && Procurado == false)
     {
 
         saida = true;

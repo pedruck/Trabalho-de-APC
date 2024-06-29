@@ -23,6 +23,7 @@ int pontuacao;
 
 
 
+
 bool passaporteAberto;
 bool procuradoAberto;
 bool drag;
@@ -47,6 +48,8 @@ Vetor2D LocalizacaoMouse;
 Texture2D DemitidoT;
 Texture2D IconePassaporte;
 Texture2D IconeProcurado;
+Texture2D regrasIcone;
+
 
 Texture2D IconeRaioX;
 Texture2D raioxtext;
@@ -58,7 +61,7 @@ Texture2D passaporteText;
 Texture2D CrosshairText;
 Texture2D passaporteIcone;
 Texture2D raioxIcone;
-Texture2D regrasIcone;
+
 Texture2D Regras;
 
 char * peso;
@@ -93,6 +96,7 @@ Retangulo procurado;
 Retangulo raioxIconeRec;
 Retangulo regras;
 Retangulo raiox;
+
 Retangulo regrasIconeRec;
 
 Retangulo ProcuradoIconeRec;
@@ -179,7 +183,7 @@ int WinMain(void)
     // Inicializacao
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-    LoadProcurados();
+    
     
     InitAudioDevice();
 
@@ -191,7 +195,8 @@ int WinMain(void)
     passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
     passaporteAberto = false;
     drag = false;
-    regrasIcone = LoadTexture("Textures/regrasIcone.png");
+
+    regrasIcone = LoadTexture("Textures/regrasIconeOk.png");
     raioxIcone = LoadTexture("Textures/raioxicone0.png");
     IconeProcurado = LoadTexture("Textures/jornaliconenp.png");
 
@@ -213,7 +218,7 @@ int WinMain(void)
     Procurados = LoadTexture("Textures/procurados.png");
     DemitidoT = LoadTexture("Textures/demissao.png");
     
-   
+    LoadProcurados();
     
     TransicaoPessoa = false;
 
@@ -261,11 +266,20 @@ int WinMain(void)
 
     regras.largura = regrastext.width;
     regras.altura = regrastext.height;
+
+
+
+    
     regrasIconeRec.largura = regrasIcone.width;
     regrasIconeRec.altura = regrasIcone.height;
 
     //ProcuradosLocation.x = 800;
     //ProcuradosLocation.y = 100;
+
+
+
+
+
 
     Demitido.x = 0;
     Demitido.y = 0;
@@ -782,6 +796,8 @@ void UpdateDrawFrame(void)
 
         PlaySound(ProximaPessoaSound);
         TransicaoPessoa = true;
+
+        if (Procurado == true) pontuacao -= 30;
       
        
         
@@ -798,6 +814,8 @@ void UpdateDrawFrame(void)
         if (ScanSemNecessidade == true) pontuacao -= 10;
         PlaySound(ProximaPessoaSound);
         TransicaoPessoa = true;
+
+        if(Procurado == true) pontuacao -= 15;
         
 
 
@@ -819,7 +837,7 @@ void UpdateDrawFrame(void)
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, deter) == true && IsMouseButtonPressed(0) == true)
     {
 
-        if (PessoaBombada() == false) pontuacao -= 30;
+        if (PessoaBombada() == false && Procurado == false) pontuacao -= 30;
         PlaySound(ProximaPessoaSound);
         TransicaoPessoa = true;
         
@@ -880,7 +898,9 @@ void UpdateDrawFrame(void)
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
         
         // draw dos procurados 
-        DrawTextureEx(IconeProcurado, (Vector2) {660 , 220}, 0.0, 0.7, WHITE);
+        DrawTextureEx(IconeProcurado, (Vector2) {1020 , 760}, 0.0, 0.28, WHITE);
+
+        DrawTextureEx(regrasIcone, (Vector2) {1020 , 690}, 0.0, 0.28, WHITE);
         //DrawTextureEx(Procurados, (Vector2) {procurado.x, procurado.y}, 0.0, 1, WHITE);
         //DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 136}, 0.0, 0.14, WHITE);
         //DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 255}, 0.0, 0.14, WHITE);
@@ -926,6 +946,10 @@ void UpdateDrawFrame(void)
         DrawTexture(Janela, JanelaPosicao.x, JanelaPosicao.y, WHITE);
 
         DrawTexture(Regras, RegrasLocation.x, RegrasLocation.y, WHITE);
+        
+        
+
+
         DrawTexture(Procurados, ProcuradosLocation.x + 400, ProcuradosLocation.y, WHITE);
         DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){ProcuradosLocation.x + 460, ProcuradosLocation.y + 188}, 0.0, 0.14, WHITE);
         DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 460, ProcuradosLocation.y + 335}, 0.0, 0.14, WHITE);
@@ -941,7 +965,7 @@ void UpdateDrawFrame(void)
        
 
         DrawText("Segure 'F' para visualizar as regras", 1100, 700, 20, DARKGRAY);
-        DrawText("Segure 'L' para visualizar os procurados", 1100, 750, 20, DARKGRAY);
+        DrawText("Segure 'L' para visualizar os procurados", 1100, 780, 20, DARKGRAY);
 
 
         
