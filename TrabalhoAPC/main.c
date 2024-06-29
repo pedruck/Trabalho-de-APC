@@ -5,12 +5,10 @@
 #include "include/dialogo.h"
 #include "stdlib.h"
 
-
-
+// abrir janela
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
 #endif
-
 
 const int screenWidth = 1680;
 const int screenHeight = 720; 
@@ -21,14 +19,10 @@ int framesCounter;
 char * estadoemprego;
 int pontuacao;
 
-
-
-
 bool passaporteAberto;
 bool procuradoAberto;
 bool drag;
 bool ScanSemNecessidade;
-
 
 bool regrasIconeAberto;
 bool raioxIconeAberto;
@@ -42,14 +36,11 @@ bool TransicaoPessoa;
 
 bool foidemitido = false;
 
-
-
 Vetor2D LocalizacaoMouse;
 Texture2D DemitidoT;
 Texture2D IconePassaporte;
 Texture2D IconeProcurado;
 Texture2D regrasIcone;
-
 
 Texture2D IconeRaioX;
 Texture2D raioxtext;
@@ -91,7 +82,6 @@ Vector2 PessoaPosition;
 Retangulo passaporte;
 Retangulo passaporteIconeRec;
 
-
 Retangulo procurado;
 Retangulo raioxIconeRec;
 Retangulo regras;
@@ -115,8 +105,7 @@ bool AvalicaoFoiFeita;
 
 void ProximaPessoa()
 {
-    
-            
+        
             framesCounter = 0;
             
             Count++;
@@ -129,16 +118,12 @@ void ProximaPessoa()
             passaporteIcone = LoadTexture("Textures/passaporteicone0.png");
             raioxIcone = LoadTexture("Textures/raioxicone0.png");
             regrasIcone = LoadTexture("Textures/regrasIconeOk.png");
-            //IconeProcurado = LoadTexture("Textures/jornaliconenp.png");
+            
 
             ScanFeito = false;
             ScanSemNecessidade = false;
-            
-
 
 }
-
-
 
 
 
@@ -147,13 +132,8 @@ void UpdateFrames(void)
 
     if(AvalicaoFoiFeita == false)
     {
-
         passaporteText = LoadTexture("Textures/passport-blank.png");
         raioxtext = LoadTexture("Textures/BodyM1.png");
-        //Procurados = LoadTexture("Textures/procurados.png");
-
-        
-
     }
 
 }
@@ -162,15 +142,11 @@ void UpdateFrames(void)
 
 void UpdateDrawFrame(void);     // Update 
 
-
 int WinMain(void)
 {
     
-    
-
     ProcuradosLocation.x = -1000;
     ProcuradosLocation.y = -1000;
-
 
     RegrasLocation.x = -1000;
     RegrasLocation.y = -1000;
@@ -199,16 +175,12 @@ int WinMain(void)
     regrasIcone = LoadTexture("Textures/regrasIconeOk.png");
     raioxIcone = LoadTexture("Textures/raioxicone0.png");
     IconeProcurado = LoadTexture("Textures/jornaliconenp.png");
-
-    
-
    
     regrasIconeAberto = false;
     raioxIconeAberto = false;
     drag = false;
     ScanFeito = false;
     
-
     ScanSemNecessidade = false;
     Music music = LoadMusicStream("Textures/Vento.mp3");
     ProximaPessoaSound = LoadSound("Textures/proximapessoa.mp3");
@@ -224,11 +196,8 @@ int WinMain(void)
 
     PlayMusicStream(music);
 
-
     framesCounter = 0;
        
-    
-
     //DisableCursor();
    
     UpdateFrames();
@@ -243,7 +212,6 @@ int WinMain(void)
 
     passaporte.largura = passaporteText.width;
     passaporte.altura = passaporteText.height;
-
 
     passaporteIconeRec.x = 660;
     passaporteIconeRec.y = 40;
@@ -266,20 +234,9 @@ int WinMain(void)
 
     regras.largura = regrastext.width;
     regras.altura = regrastext.height;
-
-
-
     
     regrasIconeRec.largura = regrasIcone.width;
     regrasIconeRec.altura = regrasIcone.height;
-
-    //ProcuradosLocation.x = 800;
-    //ProcuradosLocation.y = 100;
-
-
-
-
-
 
     Demitido.x = 0;
     Demitido.y = 0;
@@ -289,16 +246,6 @@ int WinMain(void)
 
     procurado.largura = Procurados.width;
     procurado.altura = Procurados.height;
-
-
-    //ProcuradoIconeRec.x = 800;
-    //ProcuradoIconeRec.y = 300;
-    
-    //ProcuradoIconeRec.largura = IconeProcurado.width;
-    //ProcuradoIconeRec.altura = IconeProcurado.height;
-
-
-
 
 
     deter.x = 200;
@@ -320,14 +267,9 @@ int WinMain(void)
     scan.y = 560;
     scan.altura = 50;
     scan.largura = 50;
-
-
-    
     
     LoadPessoas(Count);
     LoadDialogo(Count);
-    
-
     
 
 #if defined(PLATFORM_WEB)
@@ -350,6 +292,7 @@ int WinMain(void)
         procuradoIconeAberto = false;
         Tutorial = false;
 
+        //livro de regras
         if (IsKeyDown(KEY_F) && Tutorial == false)
         {
             
@@ -382,8 +325,8 @@ int WinMain(void)
 
         }
 
-        //vova logica procurados
-
+        
+        //procurados
         if (IsKeyDown(KEY_L) && procuradoIconeAberto == false)
         {
             
@@ -417,13 +360,6 @@ int WinMain(void)
         }
 
 
-//fim do proc
-
-
-
-
-
-
         // Logica das Animações------------------------------------------------------------
         framesCounter++;
         
@@ -452,7 +388,7 @@ int WinMain(void)
 
         if (TransicaoPessoa == true && AnimFrameCounter2 > 140 && JanelaPosicao.y > -625 ) JanelaPosicao.y -= 14; 
 
-        //printf("%d\n", AnimFrameCounter2);
+        
         
         //-----------------------------------------------------------------------------------
 
@@ -487,8 +423,7 @@ int WinMain(void)
 
         estadoemprego = "Demitido";
         foidemitido = true;
-
-        
+     
 
     }
 
@@ -497,7 +432,7 @@ int WinMain(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadMusicStream(music);
-     CloseAudioDevice();
+    CloseAudioDevice();
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
@@ -523,20 +458,8 @@ void UpdateDrawFrame(void)
     NomeLocation.x = passaporte.x + 30;
     NomeLocation.y = passaporte.y + 340;
 
-
     
-
-
-
-    
-
-
-    
-
     // comeco da logica do passaporte
-
-    
-    
 
         if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, passaporteIconeRec) == true && IsMouseButtonPressed(1) == true && passaporteAberto == false)
         {
@@ -556,20 +479,20 @@ void UpdateDrawFrame(void)
 
         }
 
-        if (MouseDown(0) == true)
+        if (MouseDown(0) == true && LocalizacaoMouse.x > 640 + passaporte.largura/2 && passaporte.y < 610)
         {
 
             drag = true;
 
         }
-        else if (MouseDown(0) == false)
+        else if (MouseDown(0) == false && LocalizacaoMouse.x > 640 + passaporte.largura/2 && passaporte.y < 610)
         {
 
             drag = false;
 
         }
 
-        if (passaporteAberto == true && drag == true)
+        if (passaporteAberto == true && drag == true && LocalizacaoMouse.x > 640 + passaporte.largura/2 && passaporte.y < 610)
         {
             
             passaporte.x = LocalizacaoMouse.x - passaporte.largura/2;
@@ -579,6 +502,8 @@ void UpdateDrawFrame(void)
            
 
         }
+
+        printf("%f\n", LocalizacaoMouse.y);
 
         if(IsMouseButtonPressed(1) == true && passaporteAberto == true && ChecagemColisaoPontoRetangulo(LocalizacaoMouse, passaporteIconeRec) == false)
         {
@@ -628,16 +553,7 @@ void UpdateDrawFrame(void)
     }    
 
 
-
-
-
-
-
-
-
-
-
-
+    
     // fim da logica do passaporte
 
 //------------------------- ---------------------------------------------------------------//
@@ -671,8 +587,6 @@ void UpdateDrawFrame(void)
 
     }
 
-
-
    
     if (ChecagemColisaoPontoRetangulo(LocalizacaoMouse, raioxIconeRec) == true && IsMouseButtonPressed(1) == true && raioxIconeAberto == false)
         {
@@ -692,20 +606,20 @@ void UpdateDrawFrame(void)
 
         }
 
-        if (MouseDown(0) == true)
+        if (MouseDown(0) == true && LocalizacaoMouse.x > 640 + passaporte.largura/2)
         {
 
             drag = true;
 
         }
-        else if (MouseDown(0) == false)
+        else if (MouseDown(0) == false && LocalizacaoMouse.x > 640 + passaporte.largura/2)
         {
 
             drag = false;
 
         }
 
-        if (raioxIconeAberto == true && drag == true)
+        if (raioxIconeAberto == true && drag == true && LocalizacaoMouse.x > 640 + passaporte.largura/2)
         {
             
             raiox.x = LocalizacaoMouse.x - raiox.largura/2;
@@ -733,7 +647,6 @@ void UpdateDrawFrame(void)
             
         }
 
-    
 
     if(IsMouseButtonPressed(1))
     {
@@ -756,29 +669,9 @@ void UpdateDrawFrame(void)
 
             raioxIcone = LoadTexture("Textures/raioxicone0.png");
 
-        
-
             }
         
-
-        
-
-
     //fim do raiox
-
-    // inicio procurados
-
- 
-
-
-
-//fim procurados
-
-
-
-
-
-
 
     }
     //------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
@@ -799,10 +692,6 @@ void UpdateDrawFrame(void)
 
         if (Procurado == true) pontuacao -= 30;
       
-       
-        
-        
-
 
     }
 
@@ -848,11 +737,6 @@ void UpdateDrawFrame(void)
 
 
 
-
-  
-
-    //printf("%d\n", pontuacao);
-
     //-------------------------------------------------------------------------------------------------
 
     if (foidemitido == true) 
@@ -871,10 +755,6 @@ void UpdateDrawFrame(void)
         
     }
     
-
-
-
-
     //----------------------------------------------------------------------------------
 
     // Draw
@@ -892,32 +772,30 @@ void UpdateDrawFrame(void)
  
         DrawTexture(bg1bar, 0, 0, WHITE);
         DrawTexture(division, 0, 0, WHITE);
+
+
+        DrawTextureEx(IconeProcurado, (Vector2) {1020 , 780}, 0.0, 0.28, WHITE);
+        DrawTextureEx(regrasIcone, (Vector2) {1020 , 710}, 0.0, 0.28, WHITE);
+
+        DrawText("Segure 'F' para visualizar as regras", 1100, 720, 20, DARKGRAY);
+        DrawText("Segure 'L' para visualizar os procurados", 1100, 800, 20, DARKGRAY);
+
+
+
+
+
+
+
+
         DrawTextureEx(raioxIcone, (Vector2) {raioxIconeRec.x , raioxIconeRec.y}, 0.0, 0.7, WHITE);
         DrawTextureEx(passaporteIcone, (Vector2){660, 40}, 0.0, 0.7, WHITE);
         
         DrawTexture(passaporteText, passaporte.x, passaporte.y, WHITE);
         
-        // draw dos procurados 
-        DrawTextureEx(IconeProcurado, (Vector2) {1020 , 760}, 0.0, 0.28, WHITE);
-
-        DrawTextureEx(regrasIcone, (Vector2) {1020 , 690}, 0.0, 0.28, WHITE);
-        //DrawTextureEx(Procurados, (Vector2) {procurado.x, procurado.y}, 0.0, 1, WHITE);
-        //DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 136}, 0.0, 0.14, WHITE);
-        //DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 255}, 0.0, 0.14, WHITE);
-
-
-
-
-
-
-
-       // DrawTextureEx(Procurados, (Vector2){ProcuradosLocation.x + 900, ProcuradosLocation.y + 136}, 0.0, 0.8, WHITE);
-       // DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){ProcuradosLocation.x + 900, ProcuradosLocation.y + 136}, 0.0, 0.14, WHITE);
-    // DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 900, ProcuradosLocation.y + 255}, 0.0, 0.14, WHITE);
 
         
 
-       // DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
+       
        
         DrawText(TextFormat("%d cm", PessoaAtual.alturaPassaporte), passaporte.x + 250, passaporte.y + 375, 20, BLACK);
         DrawTextoSimples(TextFormat("%4.fkg", PessoaAtual.pesoPassaporte), passaporte.x + 240, passaporte.y + 465, 20, BLACK);
@@ -927,20 +805,14 @@ void UpdateDrawFrame(void)
         
         DrawTextureEx(PassaporteSprite, (Vector2) {passaporte.x +16, passaporte.y + 416}, 0.0, 0.28, WHITE);
         DrawTextureEx(PessoaRaioX, (Vector2) {raiox.x, raiox.y}, 0.0, 1.7, WHITE);   
-        //DrawRectangle(passaporteIconeRec.x, passaporteIconeRec.y, passaporteIconeRec.largura,passaporteIconeRec.altura ,RED);
-
-
-      //  DrawRectangle(aprovar.x, aprovar.y, aprovar.largura, aprovar.altura, RED);
-      //  DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
-      //  DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
-      //  DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
+        
 
 
         DrawTextoSimples(TextSubtext(Mensagem, 0, framesCounter/1.2), 50, 550, 21, WHITE);
         DrawTextoSimples("DATA: 27/11/1982", 0, 0, 20, WHITE ); 
         //DrawText("DATA: ", 0, 0, 20, LIGHTGRAY);
         
-        DrawTextoSimples("Estado do emprego:", 0, 20, 20, WHITE );    //pedro druck mama rola
+        DrawTextoSimples("Estado do emprego:", 0, 20, 20, WHITE );  
         DrawTextoSimples(estadoemprego, 210, 20, 20, WHITE);
 
         DrawTexture(Janela, JanelaPosicao.x, JanelaPosicao.y, WHITE);
@@ -955,23 +827,35 @@ void UpdateDrawFrame(void)
         DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 460, ProcuradosLocation.y + 335}, 0.0, 0.14, WHITE);
 
 
-        //DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 255}, 0.0, 0.14, WHITE);
+        
 
 
 
 
 
         
-       
-
-        DrawText("Segure 'F' para visualizar as regras", 1100, 700, 20, DARKGRAY);
-        DrawText("Segure 'L' para visualizar os procurados", 1100, 780, 20, DARKGRAY);
-
+        
 
         
 
          DrawTextureEx(DemitidoT, (Vector2) {Demitido.x, Demitido.y}, 0.0, 1.1, WHITE);
 
+
+    //debug:
+
+    //DrawTextureEx(Procurados, (Vector2) {procurado.x, procurado.y}, 0.0, 1, WHITE);
+    //DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 136}, 0.0, 0.14, WHITE);
+    //DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 255}, 0.0, 0.14, WHITE);
+    //DrawTextureEx(Procurados, (Vector2){ProcuradosLocation.x + 900, ProcuradosLocation.y + 136}, 0.0, 0.8, WHITE);
+    //DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){ProcuradosLocation.x + 900, ProcuradosLocation.y + 136}, 0.0, 0.14, WHITE);
+    //DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 900, ProcuradosLocation.y + 255}, 0.0, 0.14, WHITE);
+    //DrawTexture(CrosshairText, LocalizacaoMouse.x - CrosshairText.width/2, LocalizacaoMouse.y - CrosshairText.height/2, WHITE);
+    //DrawRectangle(passaporteIconeRec.x, passaporteIconeRec.y, passaporteIconeRec.largura,passaporteIconeRec.altura ,RED);
+    // DrawRectangle(aprovar.x, aprovar.y, aprovar.largura, aprovar.altura, RED);
+    //DrawRectangle(deter.x, deter.y, deter.largura, deter.altura, RED);
+    //DrawRectangle(rejeitar.x, rejeitar.y, rejeitar.largura, rejeitar.altura, RED);
+    //DrawRectangle(scan.x, scan.y, scan.altura, scan.largura, RED);
+    //DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){procurado.x + 41, procurado.y + 255}, 0.0, 0.14, WHITE);
         
 
       

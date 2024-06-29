@@ -63,7 +63,7 @@ struct FotoPessoa Procurado2Passaporte;
 
 
 
-//AQUI TIAGO PORRAAAAAAAA
+
 void LoadProcurados()
 {
 
@@ -199,7 +199,7 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
     NumeroRandom5 = GetRandomValue(0, 10);
 
 
-    if (NumeroRandom5 >= 0 && Sexo == 'M'){
+    if (NumeroRandom5 >= 7 && Sexo == 'M'){
         
         Procurado = true;
         
@@ -254,12 +254,6 @@ char SegundosNomesFemininos[10][12] = {" Silva", " Alves", " Santos", " Shimizu"
         vencimento.ano = 1982 + GetRandomValue(1, 3);
     }
     
-    
-
-
-    
-
-
 
 
 }
@@ -303,14 +297,6 @@ struct FotoPessoa Procurado2Passaporte;
 
 
 int RandomProcurado;
-
-
-
-
-
-
-
-
 
 
 
@@ -421,7 +407,7 @@ void LoadPessoas(int PessoaCount)
     struct FotoPessoa SpriteF2;
     SpriteF2.Foto = LoadTexture("Textures/mina02.png");
     SpriteF2.FotoID = 10;
-    SpriteF2.altura = 168 + GetRandomValue(-1, 1);
+    SpriteF2.altura = 160 + GetRandomValue(-1, 1);
 
     struct FotoPessoa PassaportF2;
     PassaportF2.Foto = LoadTexture("Textures/ftidmina02.png");
@@ -479,26 +465,9 @@ void LoadPessoas(int PessoaCount)
   //  SpriteF7.altura = 168 + GetRandomValue(-1, 1);
 
 
-   
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //-----------------INCIALIZAÇÃO DAS STRUCTS POR MEIO DE UMA ARRAY--------------------------------------------------------------------------
-
 
 
 struct FotoPessoa HomemSprite[] = {SpriteM0, SpriteM1, SpriteM2, SpriteM3, SpriteM4, SpriteM5, SpriteM6, SpriteM7};
@@ -512,11 +481,6 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     strcpy(PessoaAtual.nome, Nome);
-
-
-
-
-
 
     int Sorteio = GetRandomValue(0, 7);
 
@@ -576,12 +540,7 @@ struct FotoPessoa PassaporteMulher[] = {PassaportF0, PassaportF1, PassaportF2, P
     }
 
     
-
 int RandomAltura = GetRandomValue(0, 10);
-
-
-
-
 
 
     strcpy(PessoaAtual.nome, Nome);
@@ -708,7 +667,4 @@ bool PessoaValida(void)
     return saida;
 
 }
-
-
-
 
