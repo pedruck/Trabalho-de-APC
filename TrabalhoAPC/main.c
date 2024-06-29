@@ -1,4 +1,5 @@
 
+
 #include "include/raylib.h"
 #include "include/lbasic.h"
 #include "include/pessoas.h"
@@ -276,7 +277,7 @@ int WinMain(void)
     emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
 #else
     SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------//
 
 #endif
 
@@ -503,7 +504,6 @@ void UpdateDrawFrame(void)
 
         }
 
-        printf("%f\n", LocalizacaoMouse.y);
 
         if(IsMouseButtonPressed(1) == true && passaporteAberto == true && ChecagemColisaoPontoRetangulo(LocalizacaoMouse, passaporteIconeRec) == false)
         {
@@ -674,9 +674,6 @@ void UpdateDrawFrame(void)
     //fim do raiox
 
     }
-    //------------------------- CODIGO TEMPORARIO (DEBUG) -----------------------------
-
-        
 
     //---------------------------------(CODIGO BOTOES)-------------------------------------------------
 
@@ -818,13 +815,10 @@ void UpdateDrawFrame(void)
         DrawTexture(Janela, JanelaPosicao.x, JanelaPosicao.y, WHITE);
 
         DrawTexture(Regras, RegrasLocation.x, RegrasLocation.y, WHITE);
-        
-        
-
 
         DrawTexture(Procurados, ProcuradosLocation.x + 400, ProcuradosLocation.y, WHITE);
-        DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){ProcuradosLocation.x + 460, ProcuradosLocation.y + 188}, 0.0, 0.14, WHITE);
-        DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 460, ProcuradosLocation.y + 335}, 0.0, 0.14, WHITE);
+        DrawTextureEx(Procurado1Passaporte.Foto, (Vector2){ProcuradosLocation.x + 443, ProcuradosLocation.y + 158}, 0.0, 0.2, WHITE);
+        DrawTextureEx(Procurado2Passaporte.Foto, (Vector2){ProcuradosLocation.x + 443, ProcuradosLocation.y + 305}, 0.0, 0.2, WHITE);
 
 
         
@@ -864,4 +858,3 @@ void UpdateDrawFrame(void)
     
     
 }
-
